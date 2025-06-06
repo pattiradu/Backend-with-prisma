@@ -1,357 +1,184 @@
 // Import Prisma and Express
 const { PrismaClient } = require("./generated/hypertension_system");
 const express = require("express");
+const cors = require("cors");
+
 const app = express();
 const prisma = new PrismaClient();
 
+app.use(cors());
 app.use(express.json());
+
+// Utility for error handling
+const handleError = (res, error) => {
+  console.error(error);
+  res.status(500).json({ error: error.message || "Internal Server Error" });
+};
 
 // -------- tbl_roles --------
 
-// Create new role
-app.post("/roles", async(req, res) => {
-
+app.post("/roles", async (req, res) => {
+  try {
     const { role_name } = req.body;
+    if (!role_name)
+      return res.status(400).json({ error: "Role name is required" });
 
-    try {
-        const role = await prisma.tbl_roles.create({ data: { role_name } });
+    const existRole = await prisma.tbl_roles.findFirst({
+      where: { role_name },
+    });
+    if (existRole) return res.status(409).json("Role already exists");
 
-        res.send(role);
-
-    } catch (error) {
-
-        res.status(500).send({ message: error.message });
-
-    }
+    await prisma.tbl_roles.create({ data: { role_name } });
+    res.status(201).json({ message: "Role created successfully" });
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// Retrieve all roles
-app.get("/roles", async(req, res) => {
-    try {
-        const roles = await prisma.tbl_roles.findMany();
-        res.send(roles);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
+app.get("/roles", async (_, res) => {
+  try {
+    const roles = await prisma.tbl_roles.findMany();
+    res.json(roles);
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// Update role
-app.put("/roles/:id", async(req, res) => {
+app.get("/roles/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const role = await prisma.tbl_roles.findUnique({ where: { id } });
+    if (!role) return res.status(404).json({ error: "Role not found" });
+    res.json(role);
+  } catch (error) {
+    handleError(res, error);
+  }
+});
+
+app.put("/roles/:id", async (req, res) => {
+  try {
     const { role_name } = req.body;
-    try {
-        const updated = await prisma.tbl_roles.update({
-            where: { role_id: parseInt(req.params.id) },
-            data: { role_name },
-        });
-        res.send(updated);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
+    const { id } = req.params;
+    const updated = await prisma.tbl_roles.update({
+      where: { id },
+      data: { role_name },
+    });
+    res.json(updated);
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// Delete role
-app.delete("/roles/:id", async(req, res) => {
-    try {
-        await prisma.tbl_roles.delete({ where: { role_id: parseInt(req.params.id) } });
-        res.send({ message: "Role deleted" });
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
+app.delete("/roles/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await prisma.tbl_roles.delete({ where: { id } });
+    res.json({ message: "Role deleted successfully" });
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// -------- tbl_users (General Users) --------
+// -------- tbl_users --------
 
-// Create new user
-app.post("/users", async(req, res) => {
+app.post("/users", async (req, res) => {
+  try {
     const { names, email, password, role_id } = req.body;
-    try {
-        const user = await prisma.tbl_users.create({ data: { names, email, password, role_id } });
-        res.send(user);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
+    if (!names || !email || !password || !role_id)
+      return res.status(400).json({ error: "All fields are required" });
+
+    const user = await prisma.tbl_users.create({
+      data: { names, email, password, role_id },
+    });
+    res.status(201).json(user);
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// Retrieve all users
-app.get("/users", async(req, res) => {
-    try {
-        const users = await prisma.tbl_users.findMany({ include: { role: true } });
-        res.send(users);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
+app.get("/users", async (_, res) => {
+  try {
+    const users = await prisma.tbl_users.findMany({ include: { role: true } });
+    res.json(users);
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// Update user
-app.put("/users/:id", async(req, res) => {
+app.put("/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
     const { names, email, password, role_id } = req.body;
-    try {
-        const updated = await prisma.tbl_users.update({
-            where: { user_id: parseInt(req.params.id) },
-            data: { names, email, password, role_id },
-        });
-        res.send(updated);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
+    const updated = await prisma.tbl_users.update({
+      where: { id },
+      data: { names, email, password, role_id },
+    });
+    res.json(updated);
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// Delete user
-app.delete("/users/:id", async(req, res) => {
-    try {
-        await prisma.tbl_users.delete({ where: { user_id: parseInt(req.params.id) } });
-        res.send({ message: "User deleted" });
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
+app.delete("/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await prisma.tbl_users.delete({ where: { id } });
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// -------- tbl_user (System/Admin Users) --------
+// -------- Heart Data --------
 
-// Create system user
-app.post("/system-users", async(req, res) => {
-    const { u_names, u_phone, u_usersname, u_email, u_password, u_role_id } = req.body;
-    try {
-        const admin = await prisma.tbl_user.create({
-            data: { u_names, u_phone, u_usersname, u_email, u_password, u_role_id },
-        });
-        res.send(admin);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Retrieve all system users
-app.get("/system-users", async(req, res) => {
-    try {
-        const admins = await prisma.tbl_user.findMany({ include: { role: true } });
-        res.send(admins);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Update system user
-app.put("/system-users/:id", async(req, res) => {
-    const { u_names, u_phone, u_usersname, u_email, u_password, u_role_id } = req.body;
-    try {
-        const updated = await prisma.tbl_user.update({
-            where: { u_id: parseInt(req.params.id) },
-            data: { u_names, u_phone, u_usersname, u_email, u_password, u_role_id },
-        });
-        res.send(updated);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Delete system user
-app.delete("/system-users/:id", async(req, res) => {
-    try {
-        await prisma.tbl_user.delete({ where: { u_id: parseInt(req.params.id) } });
-        res.send({ message: "System user deleted" });
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// -------- tbl_doctors --------
-
-// Create doctor
-app.post("/doctors", async(req, res) => {
-    const { name, specialization } = req.body;
-    try {
-        const doctor = await prisma.tbl_doctors.create({ data: { name, specialization } });
-        res.send(doctor);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Retrieve all doctors
-app.get("/doctors", async(req, res) => {
-    try {
-        const doctors = await prisma.tbl_doctors.findMany();
-        res.send(doctors);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Update doctor
-app.put("/doctors/:id", async(req, res) => {
-    const { name, specialization } = req.body;
-    try {
-        const updated = await prisma.tbl_doctors.update({
-            where: { doctor_id: parseInt(req.params.id) },
-            data: { name, specialization },
-        });
-        res.send(updated);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Delete doctor
-app.delete("/doctors/:id", async(req, res) => {
-    try {
-        await prisma.tbl_doctors.delete({ where: { doctor_id: parseInt(req.params.id) } });
-        res.send({ message: "Doctor deleted" });
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// -------- tbl_appointments --------
-
-// Create appointment
-app.post("/appointments", async(req, res) => {
-    const { doctor_id, patient_name, appointment_date, status } = req.body;
-    try {
-        const appointment = await prisma.tbl_appointments.create({
-            data: { doctor_id, patient_name, appointment_date: new Date(appointment_date), status },
-        });
-        res.send(appointment);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Retrieve all appointments
-app.get("/appointments", async(req, res) => {
-    try {
-        const appointments = await prisma.tbl_appointments.findMany({
-            include: { doctor: true, solved_appointments: true },
-        });
-        res.send(appointments);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Update appointment
-app.put("/appointments/:id", async(req, res) => {
-    const { doctor_id, patient_name, appointment_date, status } = req.body;
-    try {
-        const updated = await prisma.tbl_appointments.update({
-            where: { appointment_id: parseInt(req.params.id) },
-            data: { doctor_id, patient_name, appointment_date: new Date(appointment_date), status },
-        });
-        res.send(updated);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Delete appointment
-app.delete("/appointments/:id", async(req, res) => {
-    try {
-        await prisma.tbl_appointments.delete({ where: { appointment_id: parseInt(req.params.id) } });
-        res.send({ message: "Appointment deleted" });
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// -------- tbl_solved_appointments --------
-
-// Create solved appointment
-app.post("/solved-appointments", async(req, res) => {
-    const { appointment_id, doctor_id, patient_name, appointment_date, status } = req.body;
-    try {
-        const solved = await prisma.tbl_solved_appointments.create({
-            data: { appointment_id, doctor_id, patient_name, appointment_date: new Date(appointment_date), status },
-        });
-        res.send(solved);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Retrieve all solved appointments
-app.get("/solved-appointments", async(req, res) => {
-    try {
-        const solved = await prisma.tbl_solved_appointments.findMany({
-            include: { appointment: true, doctor: true },
-        });
-        res.send(solved);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Update solved appointment
-app.put("/solved-appointments/:id", async(req, res) => {
-    const { appointment_id, doctor_id, patient_name, appointment_date, status } = req.body;
-    try {
-        const updated = await prisma.tbl_solved_appointments.update({
-            where: { solved_id: parseInt(req.params.id) },
-            data: { appointment_id, doctor_id, patient_name, appointment_date: new Date(appointment_date), status },
-        });
-        res.send(updated);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// Delete solved appointment
-app.delete("/solved-appointments/:id", async(req, res) => {
-    try {
-        await prisma.tbl_solved_appointments.delete({ where: { solved_id: parseInt(req.params.id) } });
-        res.send({ message: "Solved appointment deleted" });
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-});
-
-// -------- tbl_heart_data --------
-
-// Insert heart data
-app.post("/heart-data", async(req, res) => {
+app.post("/heart-data", async (req, res) => {
+  try {
     const { patient_name, heartbeat, status } = req.body;
-    try {
-        const data = await prisma.tbl_heart_data.create({
-            data: { patient_name, heartbeat, status },
-        });
-        res.send(data);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
+    if (!patient_name || !heartbeat || !status)
+      return res.status(400).json({ error: "All fields are required" });
+
+    const data = await prisma.tbl_heart_data.create({
+      data: { patient_name, heartbeat, status },
+    });
+    res.status(201).json(data);
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// Get all heart data
-app.get("/heart-data", async(req, res) => {
-    try {
-        const data = await prisma.tbl_heart_data.findMany();
-        res.send(data);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
+app.get("/heart-data", async (_, res) => {
+  try {
+    const data = await prisma.tbl_heart_data.findMany();
+    res.json(data);
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// Update heart data
-app.put("/heart-data/:id", async(req, res) => {
+app.put("/heart-data/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
     const { patient_name, heartbeat, status } = req.body;
-    try {
-        const updated = await prisma.tbl_heart_data.update({
-            where: { id: parseInt(req.params.id) },
-            data: { patient_name, heartbeat, status },
-        });
-        res.send(updated);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
+    const updated = await prisma.tbl_heart_data.update({
+      where: { id },
+      data: { patient_name, heartbeat, status },
+    });
+    res.json(updated);
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// Delete heart data
-app.delete("/heart-data/:id", async(req, res) => {
-    try {
-        await prisma.tbl_heart_data.delete({ where: { id: parseInt(req.params.id) } });
-        res.send({ message: "Heart data deleted" });
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
+app.delete("/heart-data/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await prisma.tbl_heart_data.delete({ where: { id } });
+    res.json({ message: "Heart data deleted successfully" });
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
-// Start server
-app.listen(5000, () => console.log("Server started on http://localhost:5000"));
+// -------- Server --------
+
+app.listen(5000, () => console.log("Server running on http://localhost:5000"));

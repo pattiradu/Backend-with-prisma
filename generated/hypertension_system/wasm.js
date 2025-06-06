@@ -113,20 +113,13 @@ Prisma.NullTypes = {
  * Enums
  */
 
-exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
-  Serializable: 'Serializable'
-});
-
 exports.Prisma.Tbl_rolesScalarFieldEnum = {
-  role_id: 'role_id',
+  id: 'id',
   role_name: 'role_name'
 };
 
 exports.Prisma.Tbl_usersScalarFieldEnum = {
-  user_id: 'user_id',
+  id: 'id',
   names: 'names',
   email: 'email',
   password: 'password',
@@ -134,7 +127,7 @@ exports.Prisma.Tbl_usersScalarFieldEnum = {
 };
 
 exports.Prisma.Tbl_userScalarFieldEnum = {
-  u_id: 'u_id',
+  id: 'id',
   u_names: 'u_names',
   u_phone: 'u_phone',
   u_usersname: 'u_usersname',
@@ -144,13 +137,13 @@ exports.Prisma.Tbl_userScalarFieldEnum = {
 };
 
 exports.Prisma.Tbl_doctorsScalarFieldEnum = {
-  doctor_id: 'doctor_id',
+  id: 'id',
   name: 'name',
   specialization: 'specialization'
 };
 
 exports.Prisma.Tbl_appointmentsScalarFieldEnum = {
-  appointment_id: 'appointment_id',
+  id: 'id',
   doctor_id: 'doctor_id',
   patient_name: 'patient_name',
   appointment_date: 'appointment_date',
@@ -159,7 +152,7 @@ exports.Prisma.Tbl_appointmentsScalarFieldEnum = {
 };
 
 exports.Prisma.Tbl_solved_appointmentsScalarFieldEnum = {
-  solved_id: 'solved_id',
+  id: 'id',
   appointment_id: 'appointment_id',
   doctor_id: 'doctor_id',
   patient_name: 'patient_name',
@@ -181,42 +174,9 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.tbl_rolesOrderByRelevanceFieldEnum = {
-  role_name: 'role_name'
-};
-
-exports.Prisma.tbl_usersOrderByRelevanceFieldEnum = {
-  names: 'names',
-  email: 'email',
-  password: 'password'
-};
-
-exports.Prisma.tbl_userOrderByRelevanceFieldEnum = {
-  u_names: 'u_names',
-  u_phone: 'u_phone',
-  u_usersname: 'u_usersname',
-  u_email: 'u_email',
-  u_password: 'u_password'
-};
-
-exports.Prisma.tbl_doctorsOrderByRelevanceFieldEnum = {
-  name: 'name',
-  specialization: 'specialization'
-};
-
-exports.Prisma.tbl_appointmentsOrderByRelevanceFieldEnum = {
-  patient_name: 'patient_name',
-  status: 'status'
-};
-
-exports.Prisma.tbl_solved_appointmentsOrderByRelevanceFieldEnum = {
-  patient_name: 'patient_name',
-  status: 'status'
-};
-
-exports.Prisma.tbl_heart_dataOrderByRelevanceFieldEnum = {
-  patient_name: 'patient_name',
-  status: 'status'
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 
