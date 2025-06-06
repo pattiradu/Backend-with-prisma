@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/hypertension_system"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+
+// Roles Table
+
+model tbl_roles {
+  role_id      Int          @id @default(autoincrement())
+  role_name    String       @unique
+
+  users        tbl_users[]
+  system_users tbl_user[]
+}
+
+
+// General Users Table
+
+model tbl_users {
+  user_id   Int        @id @default(autoincrement())
+  names     String
+  email     String     @unique
+  password  String
+  role_id   Int
+
+  role      tbl_roles  @relation(fields: [role_id], references: [role_id])
+}
+
+
+// System/Admin Users Table
+
+model tbl_user {
+  u_id         Int        @id @default(autoincrement())
+  u_names      String
+  u_phone      String
+  u_usersname  String     @unique
+  u_email      String     @unique
+  u_password   String
+  u_role_id    Int
+
+  role         tbl_roles  @relation(fields: [u_role_id], references: [role_id])
+}
+
+
+// Doctors Table
+
+model tbl_doctors {
+  doctor_id      Int                       @id @default(autoincrement())
+  name           String
+  specialization String
+
+  appointments   tbl_appointments[]
+  solved         tbl_solved_appointments[]
+}
+
+
+// Appointments Table
+
+model tbl_appointments {
+  appointment_id        Int                        @id @default(autoincrement())
+  doctor_id             Int
+  patient_name          String
+  appointment_date      DateTime
+  status                String
+  created_at            DateTime                   @default(now())
+
+  doctor                tbl_doctors                @relation(fields: [doctor_id], references: [doctor_id])
+  solved_appointments   tbl_solved_appointments[]
+}
+
+
+// Solved Appointments Table
+
+model tbl_solved_appointments {
+  solved_id        Int               @id @default(autoincrement())
+  appointment_id   Int
+  doctor_id        Int
+  patient_name     String
+  appointment_date DateTime
+  status           String
+  solved_at        DateTime          @default(now())
+
+  appointment      tbl_appointments  @relation(fields: [appointment_id], references: [appointment_id])
+  doctor           tbl_doctors       @relation(fields: [doctor_id], references: [doctor_id])
+}
+
+
+// Heart Monitoring Data Table
+
+model tbl_heart_data {
+  id            Int       @id @default(autoincrement())
+  patient_name  String
+  heartbeat     Int
+  status        String
+  recorded_at   DateTime  @default(now())
+}
