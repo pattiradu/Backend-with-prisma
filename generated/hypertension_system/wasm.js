@@ -166,6 +166,9 @@ exports.Prisma.Tbl_heart_dataScalarFieldEnum = {
   patient_name: 'patient_name',
   heartbeat: 'heartbeat',
   status: 'status',
+  nid: 'nid',
+  ages: 'ages',
+  patient_code: 'patient_code',
   recorded_at: 'recorded_at'
 };
 

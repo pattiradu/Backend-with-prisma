@@ -1370,12 +1370,12 @@ export namespace Prisma {
 
   export type Tbl_rolesCountOutputType = {
     users: number
-    system_users: number
+    tbl_users: number
   }
 
   export type Tbl_rolesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Tbl_rolesCountOutputTypeCountUsersArgs
-    system_users?: boolean | Tbl_rolesCountOutputTypeCountSystem_usersArgs
+    tbl_users?: boolean | Tbl_rolesCountOutputTypeCountTbl_usersArgs
   }
 
   // Custom InputTypes
@@ -1393,14 +1393,14 @@ export namespace Prisma {
    * Tbl_rolesCountOutputType without action
    */
   export type Tbl_rolesCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: tbl_usersWhereInput
+    where?: tbl_userWhereInput
   }
 
   /**
    * Tbl_rolesCountOutputType without action
    */
-  export type Tbl_rolesCountOutputTypeCountSystem_usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: tbl_userWhereInput
+  export type Tbl_rolesCountOutputTypeCountTbl_usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tbl_usersWhereInput
   }
 
 
@@ -1620,7 +1620,7 @@ export namespace Prisma {
     id?: boolean
     role_name?: boolean
     users?: boolean | tbl_roles$usersArgs<ExtArgs>
-    system_users?: boolean | tbl_roles$system_usersArgs<ExtArgs>
+    tbl_users?: boolean | tbl_roles$tbl_usersArgs<ExtArgs>
     _count?: boolean | Tbl_rolesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tbl_roles"]>
 
@@ -1634,15 +1634,15 @@ export namespace Prisma {
   export type tbl_rolesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "role_name", ExtArgs["result"]["tbl_roles"]>
   export type tbl_rolesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | tbl_roles$usersArgs<ExtArgs>
-    system_users?: boolean | tbl_roles$system_usersArgs<ExtArgs>
+    tbl_users?: boolean | tbl_roles$tbl_usersArgs<ExtArgs>
     _count?: boolean | Tbl_rolesCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $tbl_rolesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "tbl_roles"
     objects: {
-      users: Prisma.$tbl_usersPayload<ExtArgs>[]
-      system_users: Prisma.$tbl_userPayload<ExtArgs>[]
+      users: Prisma.$tbl_userPayload<ExtArgs>[]
+      tbl_users: Prisma.$tbl_usersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2010,8 +2010,8 @@ export namespace Prisma {
    */
   export interface Prisma__tbl_rolesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    users<T extends tbl_roles$usersArgs<ExtArgs> = {}>(args?: Subset<T, tbl_roles$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tbl_usersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    system_users<T extends tbl_roles$system_usersArgs<ExtArgs> = {}>(args?: Subset<T, tbl_roles$system_usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tbl_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    users<T extends tbl_roles$usersArgs<ExtArgs> = {}>(args?: Subset<T, tbl_roles$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tbl_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tbl_users<T extends tbl_roles$tbl_usersArgs<ExtArgs> = {}>(args?: Subset<T, tbl_roles$tbl_usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tbl_usersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2417,30 +2417,6 @@ export namespace Prisma {
    */
   export type tbl_roles$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the tbl_users
-     */
-    select?: tbl_usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_users
-     */
-    omit?: tbl_usersOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_usersInclude<ExtArgs> | null
-    where?: tbl_usersWhereInput
-    orderBy?: tbl_usersOrderByWithRelationInput | tbl_usersOrderByWithRelationInput[]
-    cursor?: tbl_usersWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Tbl_usersScalarFieldEnum | Tbl_usersScalarFieldEnum[]
-  }
-
-  /**
-   * tbl_roles.system_users
-   */
-  export type tbl_roles$system_usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
      * Select specific fields to fetch from the tbl_user
      */
     select?: tbl_userSelect<ExtArgs> | null
@@ -2458,6 +2434,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Tbl_userScalarFieldEnum | Tbl_userScalarFieldEnum[]
+  }
+
+  /**
+   * tbl_roles.tbl_users
+   */
+  export type tbl_roles$tbl_usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl_users
+     */
+    select?: tbl_usersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl_users
+     */
+    omit?: tbl_usersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tbl_usersInclude<ExtArgs> | null
+    where?: tbl_usersWhereInput
+    orderBy?: tbl_usersOrderByWithRelationInput | tbl_usersOrderByWithRelationInput[]
+    cursor?: tbl_usersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Tbl_usersScalarFieldEnum | Tbl_usersScalarFieldEnum[]
   }
 
   /**
@@ -2643,7 +2643,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     role_id?: boolean
-    role?: boolean | tbl_users$roleArgs<ExtArgs>
+    role?: boolean | tbl_rolesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tbl_users"]>
 
 
@@ -2658,13 +2658,13 @@ export namespace Prisma {
 
   export type tbl_usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "names" | "email" | "password" | "role_id", ExtArgs["result"]["tbl_users"]>
   export type tbl_usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    role?: boolean | tbl_users$roleArgs<ExtArgs>
+    role?: boolean | tbl_rolesDefaultArgs<ExtArgs>
   }
 
   export type $tbl_usersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "tbl_users"
     objects: {
-      role: Prisma.$tbl_rolesPayload<ExtArgs> | null
+      role: Prisma.$tbl_rolesPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3035,7 +3035,7 @@ export namespace Prisma {
    */
   export interface Prisma__tbl_usersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    role<T extends tbl_users$roleArgs<ExtArgs> = {}>(args?: Subset<T, tbl_users$roleArgs<ExtArgs>>): Prisma__tbl_rolesClient<$Result.GetResult<Prisma.$tbl_rolesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    role<T extends tbl_rolesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tbl_rolesDefaultArgs<ExtArgs>>): Prisma__tbl_rolesClient<$Result.GetResult<Prisma.$tbl_rolesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3437,25 +3437,6 @@ export namespace Prisma {
      * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
      */
     options?: InputJsonValue
-  }
-
-  /**
-   * tbl_users.role
-   */
-  export type tbl_users$roleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_roles
-     */
-    select?: tbl_rolesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_roles
-     */
-    omit?: tbl_rolesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_rolesInclude<ExtArgs> | null
-    where?: tbl_rolesWhereInput
   }
 
   /**
@@ -7604,10 +7585,12 @@ export namespace Prisma {
 
   export type Tbl_heart_dataAvgAggregateOutputType = {
     heartbeat: number | null
+    ages: number | null
   }
 
   export type Tbl_heart_dataSumAggregateOutputType = {
     heartbeat: number | null
+    ages: number | null
   }
 
   export type Tbl_heart_dataMinAggregateOutputType = {
@@ -7615,6 +7598,9 @@ export namespace Prisma {
     patient_name: string | null
     heartbeat: number | null
     status: string | null
+    nid: string | null
+    ages: number | null
+    patient_code: string | null
     recorded_at: Date | null
   }
 
@@ -7623,6 +7609,9 @@ export namespace Prisma {
     patient_name: string | null
     heartbeat: number | null
     status: string | null
+    nid: string | null
+    ages: number | null
+    patient_code: string | null
     recorded_at: Date | null
   }
 
@@ -7631,6 +7620,9 @@ export namespace Prisma {
     patient_name: number
     heartbeat: number
     status: number
+    nid: number
+    ages: number
+    patient_code: number
     recorded_at: number
     _all: number
   }
@@ -7638,10 +7630,12 @@ export namespace Prisma {
 
   export type Tbl_heart_dataAvgAggregateInputType = {
     heartbeat?: true
+    ages?: true
   }
 
   export type Tbl_heart_dataSumAggregateInputType = {
     heartbeat?: true
+    ages?: true
   }
 
   export type Tbl_heart_dataMinAggregateInputType = {
@@ -7649,6 +7643,9 @@ export namespace Prisma {
     patient_name?: true
     heartbeat?: true
     status?: true
+    nid?: true
+    ages?: true
+    patient_code?: true
     recorded_at?: true
   }
 
@@ -7657,6 +7654,9 @@ export namespace Prisma {
     patient_name?: true
     heartbeat?: true
     status?: true
+    nid?: true
+    ages?: true
+    patient_code?: true
     recorded_at?: true
   }
 
@@ -7665,6 +7665,9 @@ export namespace Prisma {
     patient_name?: true
     heartbeat?: true
     status?: true
+    nid?: true
+    ages?: true
+    patient_code?: true
     recorded_at?: true
     _all?: true
   }
@@ -7758,8 +7761,11 @@ export namespace Prisma {
   export type Tbl_heart_dataGroupByOutputType = {
     id: string
     patient_name: string
-    heartbeat: number
-    status: string
+    heartbeat: number | null
+    status: string | null
+    nid: string | null
+    ages: number | null
+    patient_code: string
     recorded_at: Date
     _count: Tbl_heart_dataCountAggregateOutputType | null
     _avg: Tbl_heart_dataAvgAggregateOutputType | null
@@ -7787,6 +7793,9 @@ export namespace Prisma {
     patient_name?: boolean
     heartbeat?: boolean
     status?: boolean
+    nid?: boolean
+    ages?: boolean
+    patient_code?: boolean
     recorded_at?: boolean
   }, ExtArgs["result"]["tbl_heart_data"]>
 
@@ -7797,10 +7806,13 @@ export namespace Prisma {
     patient_name?: boolean
     heartbeat?: boolean
     status?: boolean
+    nid?: boolean
+    ages?: boolean
+    patient_code?: boolean
     recorded_at?: boolean
   }
 
-  export type tbl_heart_dataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patient_name" | "heartbeat" | "status" | "recorded_at", ExtArgs["result"]["tbl_heart_data"]>
+  export type tbl_heart_dataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patient_name" | "heartbeat" | "status" | "nid" | "ages" | "patient_code" | "recorded_at", ExtArgs["result"]["tbl_heart_data"]>
 
   export type $tbl_heart_dataPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "tbl_heart_data"
@@ -7808,8 +7820,11 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       patient_name: string
-      heartbeat: number
-      status: string
+      heartbeat: number | null
+      status: string | null
+      nid: string | null
+      ages: number | null
+      patient_code: string
       recorded_at: Date
     }, ExtArgs["result"]["tbl_heart_data"]>
     composites: {}
@@ -8207,6 +8222,9 @@ export namespace Prisma {
     readonly patient_name: FieldRef<"tbl_heart_data", 'String'>
     readonly heartbeat: FieldRef<"tbl_heart_data", 'Int'>
     readonly status: FieldRef<"tbl_heart_data", 'String'>
+    readonly nid: FieldRef<"tbl_heart_data", 'String'>
+    readonly ages: FieldRef<"tbl_heart_data", 'Int'>
+    readonly patient_code: FieldRef<"tbl_heart_data", 'String'>
     readonly recorded_at: FieldRef<"tbl_heart_data", 'DateTime'>
   }
     
@@ -8631,6 +8649,9 @@ export namespace Prisma {
     patient_name: 'patient_name',
     heartbeat: 'heartbeat',
     status: 'status',
+    nid: 'nid',
+    ages: 'ages',
+    patient_code: 'patient_code',
     recorded_at: 'recorded_at'
   };
 
@@ -8723,15 +8744,15 @@ export namespace Prisma {
     NOT?: tbl_rolesWhereInput | tbl_rolesWhereInput[]
     id?: StringFilter<"tbl_roles"> | string
     role_name?: StringFilter<"tbl_roles"> | string
-    users?: Tbl_usersListRelationFilter
-    system_users?: Tbl_userListRelationFilter
+    users?: Tbl_userListRelationFilter
+    tbl_users?: Tbl_usersListRelationFilter
   }
 
   export type tbl_rolesOrderByWithRelationInput = {
     id?: SortOrder
     role_name?: SortOrder
-    users?: tbl_usersOrderByRelationAggregateInput
-    system_users?: tbl_userOrderByRelationAggregateInput
+    users?: tbl_userOrderByRelationAggregateInput
+    tbl_users?: tbl_usersOrderByRelationAggregateInput
   }
 
   export type tbl_rolesWhereUniqueInput = Prisma.AtLeast<{
@@ -8740,8 +8761,8 @@ export namespace Prisma {
     AND?: tbl_rolesWhereInput | tbl_rolesWhereInput[]
     OR?: tbl_rolesWhereInput[]
     NOT?: tbl_rolesWhereInput | tbl_rolesWhereInput[]
-    users?: Tbl_usersListRelationFilter
-    system_users?: Tbl_userListRelationFilter
+    users?: Tbl_userListRelationFilter
+    tbl_users?: Tbl_usersListRelationFilter
   }, "id" | "role_name">
 
   export type tbl_rolesOrderByWithAggregationInput = {
@@ -8769,7 +8790,7 @@ export namespace Prisma {
     email?: StringFilter<"tbl_users"> | string
     password?: StringFilter<"tbl_users"> | string
     role_id?: StringFilter<"tbl_users"> | string
-    role?: XOR<Tbl_rolesNullableScalarRelationFilter, tbl_rolesWhereInput> | null
+    role?: XOR<Tbl_rolesScalarRelationFilter, tbl_rolesWhereInput>
   }
 
   export type tbl_usersOrderByWithRelationInput = {
@@ -8790,7 +8811,7 @@ export namespace Prisma {
     names?: StringFilter<"tbl_users"> | string
     password?: StringFilter<"tbl_users"> | string
     role_id?: StringFilter<"tbl_users"> | string
-    role?: XOR<Tbl_rolesNullableScalarRelationFilter, tbl_rolesWhereInput> | null
+    role?: XOR<Tbl_rolesScalarRelationFilter, tbl_rolesWhereInput>
   }, "id" | "email">
 
   export type tbl_usersOrderByWithAggregationInput = {
@@ -9065,8 +9086,11 @@ export namespace Prisma {
     NOT?: tbl_heart_dataWhereInput | tbl_heart_dataWhereInput[]
     id?: StringFilter<"tbl_heart_data"> | string
     patient_name?: StringFilter<"tbl_heart_data"> | string
-    heartbeat?: IntFilter<"tbl_heart_data"> | number
-    status?: StringFilter<"tbl_heart_data"> | string
+    heartbeat?: IntNullableFilter<"tbl_heart_data"> | number | null
+    status?: StringNullableFilter<"tbl_heart_data"> | string | null
+    nid?: StringNullableFilter<"tbl_heart_data"> | string | null
+    ages?: IntNullableFilter<"tbl_heart_data"> | number | null
+    patient_code?: StringFilter<"tbl_heart_data"> | string
     recorded_at?: DateTimeFilter<"tbl_heart_data"> | Date | string
   }
 
@@ -9075,25 +9099,34 @@ export namespace Prisma {
     patient_name?: SortOrder
     heartbeat?: SortOrder
     status?: SortOrder
+    nid?: SortOrder
+    ages?: SortOrder
+    patient_code?: SortOrder
     recorded_at?: SortOrder
   }
 
   export type tbl_heart_dataWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    patient_code?: string
     AND?: tbl_heart_dataWhereInput | tbl_heart_dataWhereInput[]
     OR?: tbl_heart_dataWhereInput[]
     NOT?: tbl_heart_dataWhereInput | tbl_heart_dataWhereInput[]
     patient_name?: StringFilter<"tbl_heart_data"> | string
-    heartbeat?: IntFilter<"tbl_heart_data"> | number
-    status?: StringFilter<"tbl_heart_data"> | string
+    heartbeat?: IntNullableFilter<"tbl_heart_data"> | number | null
+    status?: StringNullableFilter<"tbl_heart_data"> | string | null
+    nid?: StringNullableFilter<"tbl_heart_data"> | string | null
+    ages?: IntNullableFilter<"tbl_heart_data"> | number | null
     recorded_at?: DateTimeFilter<"tbl_heart_data"> | Date | string
-  }, "id">
+  }, "id" | "patient_code">
 
   export type tbl_heart_dataOrderByWithAggregationInput = {
     id?: SortOrder
     patient_name?: SortOrder
     heartbeat?: SortOrder
     status?: SortOrder
+    nid?: SortOrder
+    ages?: SortOrder
+    patient_code?: SortOrder
     recorded_at?: SortOrder
     _count?: tbl_heart_dataCountOrderByAggregateInput
     _avg?: tbl_heart_dataAvgOrderByAggregateInput
@@ -9108,35 +9141,38 @@ export namespace Prisma {
     NOT?: tbl_heart_dataScalarWhereWithAggregatesInput | tbl_heart_dataScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"tbl_heart_data"> | string
     patient_name?: StringWithAggregatesFilter<"tbl_heart_data"> | string
-    heartbeat?: IntWithAggregatesFilter<"tbl_heart_data"> | number
-    status?: StringWithAggregatesFilter<"tbl_heart_data"> | string
+    heartbeat?: IntNullableWithAggregatesFilter<"tbl_heart_data"> | number | null
+    status?: StringNullableWithAggregatesFilter<"tbl_heart_data"> | string | null
+    nid?: StringNullableWithAggregatesFilter<"tbl_heart_data"> | string | null
+    ages?: IntNullableWithAggregatesFilter<"tbl_heart_data"> | number | null
+    patient_code?: StringWithAggregatesFilter<"tbl_heart_data"> | string
     recorded_at?: DateTimeWithAggregatesFilter<"tbl_heart_data"> | Date | string
   }
 
   export type tbl_rolesCreateInput = {
     id?: string
     role_name: string
-    users?: tbl_usersCreateNestedManyWithoutRoleInput
-    system_users?: tbl_userCreateNestedManyWithoutRoleInput
+    users?: tbl_userCreateNestedManyWithoutRoleInput
+    tbl_users?: tbl_usersCreateNestedManyWithoutRoleInput
   }
 
   export type tbl_rolesUncheckedCreateInput = {
     id?: string
     role_name: string
-    users?: tbl_usersUncheckedCreateNestedManyWithoutRoleInput
-    system_users?: tbl_userUncheckedCreateNestedManyWithoutRoleInput
+    users?: tbl_userUncheckedCreateNestedManyWithoutRoleInput
+    tbl_users?: tbl_usersUncheckedCreateNestedManyWithoutRoleInput
   }
 
   export type tbl_rolesUpdateInput = {
     role_name?: StringFieldUpdateOperationsInput | string
-    users?: tbl_usersUpdateManyWithoutRoleNestedInput
-    system_users?: tbl_userUpdateManyWithoutRoleNestedInput
+    users?: tbl_userUpdateManyWithoutRoleNestedInput
+    tbl_users?: tbl_usersUpdateManyWithoutRoleNestedInput
   }
 
   export type tbl_rolesUncheckedUpdateInput = {
     role_name?: StringFieldUpdateOperationsInput | string
-    users?: tbl_usersUncheckedUpdateManyWithoutRoleNestedInput
-    system_users?: tbl_userUncheckedUpdateManyWithoutRoleNestedInput
+    users?: tbl_userUncheckedUpdateManyWithoutRoleNestedInput
+    tbl_users?: tbl_usersUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type tbl_rolesCreateManyInput = {
@@ -9157,7 +9193,7 @@ export namespace Prisma {
     names: string
     email: string
     password: string
-    role?: tbl_rolesCreateNestedOneWithoutUsersInput
+    role: tbl_rolesCreateNestedOneWithoutTbl_usersInput
   }
 
   export type tbl_usersUncheckedCreateInput = {
@@ -9172,7 +9208,7 @@ export namespace Prisma {
     names?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: tbl_rolesUpdateOneWithoutUsersNestedInput
+    role?: tbl_rolesUpdateOneRequiredWithoutTbl_usersNestedInput
   }
 
   export type tbl_usersUncheckedUpdateInput = {
@@ -9210,7 +9246,7 @@ export namespace Prisma {
     u_usersname: string
     u_email: string
     u_password: string
-    role?: tbl_rolesCreateNestedOneWithoutSystem_usersInput
+    role?: tbl_rolesCreateNestedOneWithoutUsersInput
   }
 
   export type tbl_userUncheckedCreateInput = {
@@ -9229,7 +9265,7 @@ export namespace Prisma {
     u_usersname?: StringFieldUpdateOperationsInput | string
     u_email?: StringFieldUpdateOperationsInput | string
     u_password?: StringFieldUpdateOperationsInput | string
-    role?: tbl_rolesUpdateOneWithoutSystem_usersNestedInput
+    role?: tbl_rolesUpdateOneWithoutUsersNestedInput
   }
 
   export type tbl_userUncheckedUpdateInput = {
@@ -9443,52 +9479,73 @@ export namespace Prisma {
   export type tbl_heart_dataCreateInput = {
     id?: string
     patient_name: string
-    heartbeat: number
-    status: string
+    heartbeat?: number | null
+    status?: string | null
+    nid?: string | null
+    ages?: number | null
+    patient_code: string
     recorded_at?: Date | string
   }
 
   export type tbl_heart_dataUncheckedCreateInput = {
     id?: string
     patient_name: string
-    heartbeat: number
-    status: string
+    heartbeat?: number | null
+    status?: string | null
+    nid?: string | null
+    ages?: number | null
+    patient_code: string
     recorded_at?: Date | string
   }
 
   export type tbl_heart_dataUpdateInput = {
     patient_name?: StringFieldUpdateOperationsInput | string
-    heartbeat?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
+    heartbeat?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    nid?: NullableStringFieldUpdateOperationsInput | string | null
+    ages?: NullableIntFieldUpdateOperationsInput | number | null
+    patient_code?: StringFieldUpdateOperationsInput | string
     recorded_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type tbl_heart_dataUncheckedUpdateInput = {
     patient_name?: StringFieldUpdateOperationsInput | string
-    heartbeat?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
+    heartbeat?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    nid?: NullableStringFieldUpdateOperationsInput | string | null
+    ages?: NullableIntFieldUpdateOperationsInput | number | null
+    patient_code?: StringFieldUpdateOperationsInput | string
     recorded_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type tbl_heart_dataCreateManyInput = {
     id?: string
     patient_name: string
-    heartbeat: number
-    status: string
+    heartbeat?: number | null
+    status?: string | null
+    nid?: string | null
+    ages?: number | null
+    patient_code: string
     recorded_at?: Date | string
   }
 
   export type tbl_heart_dataUpdateManyMutationInput = {
     patient_name?: StringFieldUpdateOperationsInput | string
-    heartbeat?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
+    heartbeat?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    nid?: NullableStringFieldUpdateOperationsInput | string | null
+    ages?: NullableIntFieldUpdateOperationsInput | number | null
+    patient_code?: StringFieldUpdateOperationsInput | string
     recorded_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type tbl_heart_dataUncheckedUpdateManyInput = {
     patient_name?: StringFieldUpdateOperationsInput | string
-    heartbeat?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
+    heartbeat?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    nid?: NullableStringFieldUpdateOperationsInput | string | null
+    ages?: NullableIntFieldUpdateOperationsInput | number | null
+    patient_code?: StringFieldUpdateOperationsInput | string
     recorded_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9507,23 +9564,23 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type Tbl_usersListRelationFilter = {
-    every?: tbl_usersWhereInput
-    some?: tbl_usersWhereInput
-    none?: tbl_usersWhereInput
-  }
-
   export type Tbl_userListRelationFilter = {
     every?: tbl_userWhereInput
     some?: tbl_userWhereInput
     none?: tbl_userWhereInput
   }
 
-  export type tbl_usersOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type Tbl_usersListRelationFilter = {
+    every?: tbl_usersWhereInput
+    some?: tbl_usersWhereInput
+    none?: tbl_usersWhereInput
   }
 
   export type tbl_userOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type tbl_usersOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9560,9 +9617,9 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type Tbl_rolesNullableScalarRelationFilter = {
-    is?: tbl_rolesWhereInput | null
-    isNot?: tbl_rolesWhereInput | null
+  export type Tbl_rolesScalarRelationFilter = {
+    is?: tbl_rolesWhereInput
+    isNot?: tbl_rolesWhereInput
   }
 
   export type tbl_usersCountOrderByAggregateInput = {
@@ -9587,6 +9644,11 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role_id?: SortOrder
+  }
+
+  export type Tbl_rolesNullableScalarRelationFilter = {
+    is?: tbl_rolesWhereInput | null
+    isNot?: tbl_rolesWhereInput | null
   }
 
   export type tbl_userCountOrderByAggregateInput = {
@@ -9749,15 +9811,32 @@ export namespace Prisma {
     solved_at?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
   }
 
   export type tbl_heart_dataCountOrderByAggregateInput = {
@@ -9765,11 +9844,15 @@ export namespace Prisma {
     patient_name?: SortOrder
     heartbeat?: SortOrder
     status?: SortOrder
+    nid?: SortOrder
+    ages?: SortOrder
+    patient_code?: SortOrder
     recorded_at?: SortOrder
   }
 
   export type tbl_heart_dataAvgOrderByAggregateInput = {
     heartbeat?: SortOrder
+    ages?: SortOrder
   }
 
   export type tbl_heart_dataMaxOrderByAggregateInput = {
@@ -9777,6 +9860,9 @@ export namespace Prisma {
     patient_name?: SortOrder
     heartbeat?: SortOrder
     status?: SortOrder
+    nid?: SortOrder
+    ages?: SortOrder
+    patient_code?: SortOrder
     recorded_at?: SortOrder
   }
 
@@ -9785,34 +9871,51 @@ export namespace Prisma {
     patient_name?: SortOrder
     heartbeat?: SortOrder
     status?: SortOrder
+    nid?: SortOrder
+    ages?: SortOrder
+    patient_code?: SortOrder
     recorded_at?: SortOrder
   }
 
   export type tbl_heart_dataSumOrderByAggregateInput = {
     heartbeat?: SortOrder
+    ages?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
-  export type tbl_usersCreateNestedManyWithoutRoleInput = {
-    create?: XOR<tbl_usersCreateWithoutRoleInput, tbl_usersUncheckedCreateWithoutRoleInput> | tbl_usersCreateWithoutRoleInput[] | tbl_usersUncheckedCreateWithoutRoleInput[]
-    connectOrCreate?: tbl_usersCreateOrConnectWithoutRoleInput | tbl_usersCreateOrConnectWithoutRoleInput[]
-    createMany?: tbl_usersCreateManyRoleInputEnvelope
-    connect?: tbl_usersWhereUniqueInput | tbl_usersWhereUniqueInput[]
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type tbl_userCreateNestedManyWithoutRoleInput = {
@@ -9822,7 +9925,7 @@ export namespace Prisma {
     connect?: tbl_userWhereUniqueInput | tbl_userWhereUniqueInput[]
   }
 
-  export type tbl_usersUncheckedCreateNestedManyWithoutRoleInput = {
+  export type tbl_usersCreateNestedManyWithoutRoleInput = {
     create?: XOR<tbl_usersCreateWithoutRoleInput, tbl_usersUncheckedCreateWithoutRoleInput> | tbl_usersCreateWithoutRoleInput[] | tbl_usersUncheckedCreateWithoutRoleInput[]
     connectOrCreate?: tbl_usersCreateOrConnectWithoutRoleInput | tbl_usersCreateOrConnectWithoutRoleInput[]
     createMany?: tbl_usersCreateManyRoleInputEnvelope
@@ -9836,22 +9939,15 @@ export namespace Prisma {
     connect?: tbl_userWhereUniqueInput | tbl_userWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type tbl_usersUpdateManyWithoutRoleNestedInput = {
+  export type tbl_usersUncheckedCreateNestedManyWithoutRoleInput = {
     create?: XOR<tbl_usersCreateWithoutRoleInput, tbl_usersUncheckedCreateWithoutRoleInput> | tbl_usersCreateWithoutRoleInput[] | tbl_usersUncheckedCreateWithoutRoleInput[]
     connectOrCreate?: tbl_usersCreateOrConnectWithoutRoleInput | tbl_usersCreateOrConnectWithoutRoleInput[]
-    upsert?: tbl_usersUpsertWithWhereUniqueWithoutRoleInput | tbl_usersUpsertWithWhereUniqueWithoutRoleInput[]
     createMany?: tbl_usersCreateManyRoleInputEnvelope
-    set?: tbl_usersWhereUniqueInput | tbl_usersWhereUniqueInput[]
-    disconnect?: tbl_usersWhereUniqueInput | tbl_usersWhereUniqueInput[]
-    delete?: tbl_usersWhereUniqueInput | tbl_usersWhereUniqueInput[]
     connect?: tbl_usersWhereUniqueInput | tbl_usersWhereUniqueInput[]
-    update?: tbl_usersUpdateWithWhereUniqueWithoutRoleInput | tbl_usersUpdateWithWhereUniqueWithoutRoleInput[]
-    updateMany?: tbl_usersUpdateManyWithWhereWithoutRoleInput | tbl_usersUpdateManyWithWhereWithoutRoleInput[]
-    deleteMany?: tbl_usersScalarWhereInput | tbl_usersScalarWhereInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
   }
 
   export type tbl_userUpdateManyWithoutRoleNestedInput = {
@@ -9868,7 +9964,7 @@ export namespace Prisma {
     deleteMany?: tbl_userScalarWhereInput | tbl_userScalarWhereInput[]
   }
 
-  export type tbl_usersUncheckedUpdateManyWithoutRoleNestedInput = {
+  export type tbl_usersUpdateManyWithoutRoleNestedInput = {
     create?: XOR<tbl_usersCreateWithoutRoleInput, tbl_usersUncheckedCreateWithoutRoleInput> | tbl_usersCreateWithoutRoleInput[] | tbl_usersUncheckedCreateWithoutRoleInput[]
     connectOrCreate?: tbl_usersCreateOrConnectWithoutRoleInput | tbl_usersCreateOrConnectWithoutRoleInput[]
     upsert?: tbl_usersUpsertWithWhereUniqueWithoutRoleInput | tbl_usersUpsertWithWhereUniqueWithoutRoleInput[]
@@ -9896,6 +9992,34 @@ export namespace Prisma {
     deleteMany?: tbl_userScalarWhereInput | tbl_userScalarWhereInput[]
   }
 
+  export type tbl_usersUncheckedUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<tbl_usersCreateWithoutRoleInput, tbl_usersUncheckedCreateWithoutRoleInput> | tbl_usersCreateWithoutRoleInput[] | tbl_usersUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: tbl_usersCreateOrConnectWithoutRoleInput | tbl_usersCreateOrConnectWithoutRoleInput[]
+    upsert?: tbl_usersUpsertWithWhereUniqueWithoutRoleInput | tbl_usersUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: tbl_usersCreateManyRoleInputEnvelope
+    set?: tbl_usersWhereUniqueInput | tbl_usersWhereUniqueInput[]
+    disconnect?: tbl_usersWhereUniqueInput | tbl_usersWhereUniqueInput[]
+    delete?: tbl_usersWhereUniqueInput | tbl_usersWhereUniqueInput[]
+    connect?: tbl_usersWhereUniqueInput | tbl_usersWhereUniqueInput[]
+    update?: tbl_usersUpdateWithWhereUniqueWithoutRoleInput | tbl_usersUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: tbl_usersUpdateManyWithWhereWithoutRoleInput | tbl_usersUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: tbl_usersScalarWhereInput | tbl_usersScalarWhereInput[]
+  }
+
+  export type tbl_rolesCreateNestedOneWithoutTbl_usersInput = {
+    create?: XOR<tbl_rolesCreateWithoutTbl_usersInput, tbl_rolesUncheckedCreateWithoutTbl_usersInput>
+    connectOrCreate?: tbl_rolesCreateOrConnectWithoutTbl_usersInput
+    connect?: tbl_rolesWhereUniqueInput
+  }
+
+  export type tbl_rolesUpdateOneRequiredWithoutTbl_usersNestedInput = {
+    create?: XOR<tbl_rolesCreateWithoutTbl_usersInput, tbl_rolesUncheckedCreateWithoutTbl_usersInput>
+    connectOrCreate?: tbl_rolesCreateOrConnectWithoutTbl_usersInput
+    upsert?: tbl_rolesUpsertWithoutTbl_usersInput
+    connect?: tbl_rolesWhereUniqueInput
+    update?: XOR<XOR<tbl_rolesUpdateToOneWithWhereWithoutTbl_usersInput, tbl_rolesUpdateWithoutTbl_usersInput>, tbl_rolesUncheckedUpdateWithoutTbl_usersInput>
+  }
+
   export type tbl_rolesCreateNestedOneWithoutUsersInput = {
     create?: XOR<tbl_rolesCreateWithoutUsersInput, tbl_rolesUncheckedCreateWithoutUsersInput>
     connectOrCreate?: tbl_rolesCreateOrConnectWithoutUsersInput
@@ -9910,22 +10034,6 @@ export namespace Prisma {
     delete?: tbl_rolesWhereInput | boolean
     connect?: tbl_rolesWhereUniqueInput
     update?: XOR<XOR<tbl_rolesUpdateToOneWithWhereWithoutUsersInput, tbl_rolesUpdateWithoutUsersInput>, tbl_rolesUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type tbl_rolesCreateNestedOneWithoutSystem_usersInput = {
-    create?: XOR<tbl_rolesCreateWithoutSystem_usersInput, tbl_rolesUncheckedCreateWithoutSystem_usersInput>
-    connectOrCreate?: tbl_rolesCreateOrConnectWithoutSystem_usersInput
-    connect?: tbl_rolesWhereUniqueInput
-  }
-
-  export type tbl_rolesUpdateOneWithoutSystem_usersNestedInput = {
-    create?: XOR<tbl_rolesCreateWithoutSystem_usersInput, tbl_rolesUncheckedCreateWithoutSystem_usersInput>
-    connectOrCreate?: tbl_rolesCreateOrConnectWithoutSystem_usersInput
-    upsert?: tbl_rolesUpsertWithoutSystem_usersInput
-    disconnect?: boolean
-    delete?: tbl_rolesWhereInput | boolean
-    connect?: tbl_rolesWhereUniqueInput
-    update?: XOR<XOR<tbl_rolesUpdateToOneWithWhereWithoutSystem_usersInput, tbl_rolesUpdateWithoutSystem_usersInput>, tbl_rolesUncheckedUpdateWithoutSystem_usersInput>
   }
 
   export type tbl_appointmentsCreateNestedManyWithoutDoctorInput = {
@@ -10106,12 +10214,18 @@ export namespace Prisma {
     update?: XOR<XOR<tbl_doctorsUpdateToOneWithWhereWithoutSolvedInput, tbl_doctorsUpdateWithoutSolvedInput>, tbl_doctorsUncheckedUpdateWithoutSolvedInput>
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+    unset?: boolean
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+    unset?: boolean
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10181,54 +10295,78 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
   }
 
-  export type tbl_usersCreateWithoutRoleInput = {
-    id?: string
-    names: string
-    email: string
-    password: string
-  }
-
-  export type tbl_usersUncheckedCreateWithoutRoleInput = {
-    id?: string
-    names: string
-    email: string
-    password: string
-  }
-
-  export type tbl_usersCreateOrConnectWithoutRoleInput = {
-    where: tbl_usersWhereUniqueInput
-    create: XOR<tbl_usersCreateWithoutRoleInput, tbl_usersUncheckedCreateWithoutRoleInput>
-  }
-
-  export type tbl_usersCreateManyRoleInputEnvelope = {
-    data: tbl_usersCreateManyRoleInput | tbl_usersCreateManyRoleInput[]
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type tbl_userCreateWithoutRoleInput = {
@@ -10258,31 +10396,27 @@ export namespace Prisma {
     data: tbl_userCreateManyRoleInput | tbl_userCreateManyRoleInput[]
   }
 
-  export type tbl_usersUpsertWithWhereUniqueWithoutRoleInput = {
+  export type tbl_usersCreateWithoutRoleInput = {
+    id?: string
+    names: string
+    email: string
+    password: string
+  }
+
+  export type tbl_usersUncheckedCreateWithoutRoleInput = {
+    id?: string
+    names: string
+    email: string
+    password: string
+  }
+
+  export type tbl_usersCreateOrConnectWithoutRoleInput = {
     where: tbl_usersWhereUniqueInput
-    update: XOR<tbl_usersUpdateWithoutRoleInput, tbl_usersUncheckedUpdateWithoutRoleInput>
     create: XOR<tbl_usersCreateWithoutRoleInput, tbl_usersUncheckedCreateWithoutRoleInput>
   }
 
-  export type tbl_usersUpdateWithWhereUniqueWithoutRoleInput = {
-    where: tbl_usersWhereUniqueInput
-    data: XOR<tbl_usersUpdateWithoutRoleInput, tbl_usersUncheckedUpdateWithoutRoleInput>
-  }
-
-  export type tbl_usersUpdateManyWithWhereWithoutRoleInput = {
-    where: tbl_usersScalarWhereInput
-    data: XOR<tbl_usersUpdateManyMutationInput, tbl_usersUncheckedUpdateManyWithoutRoleInput>
-  }
-
-  export type tbl_usersScalarWhereInput = {
-    AND?: tbl_usersScalarWhereInput | tbl_usersScalarWhereInput[]
-    OR?: tbl_usersScalarWhereInput[]
-    NOT?: tbl_usersScalarWhereInput | tbl_usersScalarWhereInput[]
-    id?: StringFilter<"tbl_users"> | string
-    names?: StringFilter<"tbl_users"> | string
-    email?: StringFilter<"tbl_users"> | string
-    password?: StringFilter<"tbl_users"> | string
-    role_id?: StringFilter<"tbl_users"> | string
+  export type tbl_usersCreateManyRoleInputEnvelope = {
+    data: tbl_usersCreateManyRoleInput | tbl_usersCreateManyRoleInput[]
   }
 
   export type tbl_userUpsertWithWhereUniqueWithoutRoleInput = {
@@ -10314,16 +10448,81 @@ export namespace Prisma {
     u_role_id?: StringFilter<"tbl_user"> | string
   }
 
+  export type tbl_usersUpsertWithWhereUniqueWithoutRoleInput = {
+    where: tbl_usersWhereUniqueInput
+    update: XOR<tbl_usersUpdateWithoutRoleInput, tbl_usersUncheckedUpdateWithoutRoleInput>
+    create: XOR<tbl_usersCreateWithoutRoleInput, tbl_usersUncheckedCreateWithoutRoleInput>
+  }
+
+  export type tbl_usersUpdateWithWhereUniqueWithoutRoleInput = {
+    where: tbl_usersWhereUniqueInput
+    data: XOR<tbl_usersUpdateWithoutRoleInput, tbl_usersUncheckedUpdateWithoutRoleInput>
+  }
+
+  export type tbl_usersUpdateManyWithWhereWithoutRoleInput = {
+    where: tbl_usersScalarWhereInput
+    data: XOR<tbl_usersUpdateManyMutationInput, tbl_usersUncheckedUpdateManyWithoutRoleInput>
+  }
+
+  export type tbl_usersScalarWhereInput = {
+    AND?: tbl_usersScalarWhereInput | tbl_usersScalarWhereInput[]
+    OR?: tbl_usersScalarWhereInput[]
+    NOT?: tbl_usersScalarWhereInput | tbl_usersScalarWhereInput[]
+    id?: StringFilter<"tbl_users"> | string
+    names?: StringFilter<"tbl_users"> | string
+    email?: StringFilter<"tbl_users"> | string
+    password?: StringFilter<"tbl_users"> | string
+    role_id?: StringFilter<"tbl_users"> | string
+  }
+
+  export type tbl_rolesCreateWithoutTbl_usersInput = {
+    id?: string
+    role_name: string
+    users?: tbl_userCreateNestedManyWithoutRoleInput
+  }
+
+  export type tbl_rolesUncheckedCreateWithoutTbl_usersInput = {
+    id?: string
+    role_name: string
+    users?: tbl_userUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type tbl_rolesCreateOrConnectWithoutTbl_usersInput = {
+    where: tbl_rolesWhereUniqueInput
+    create: XOR<tbl_rolesCreateWithoutTbl_usersInput, tbl_rolesUncheckedCreateWithoutTbl_usersInput>
+  }
+
+  export type tbl_rolesUpsertWithoutTbl_usersInput = {
+    update: XOR<tbl_rolesUpdateWithoutTbl_usersInput, tbl_rolesUncheckedUpdateWithoutTbl_usersInput>
+    create: XOR<tbl_rolesCreateWithoutTbl_usersInput, tbl_rolesUncheckedCreateWithoutTbl_usersInput>
+    where?: tbl_rolesWhereInput
+  }
+
+  export type tbl_rolesUpdateToOneWithWhereWithoutTbl_usersInput = {
+    where?: tbl_rolesWhereInput
+    data: XOR<tbl_rolesUpdateWithoutTbl_usersInput, tbl_rolesUncheckedUpdateWithoutTbl_usersInput>
+  }
+
+  export type tbl_rolesUpdateWithoutTbl_usersInput = {
+    role_name?: StringFieldUpdateOperationsInput | string
+    users?: tbl_userUpdateManyWithoutRoleNestedInput
+  }
+
+  export type tbl_rolesUncheckedUpdateWithoutTbl_usersInput = {
+    role_name?: StringFieldUpdateOperationsInput | string
+    users?: tbl_userUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
   export type tbl_rolesCreateWithoutUsersInput = {
     id?: string
     role_name: string
-    system_users?: tbl_userCreateNestedManyWithoutRoleInput
+    tbl_users?: tbl_usersCreateNestedManyWithoutRoleInput
   }
 
   export type tbl_rolesUncheckedCreateWithoutUsersInput = {
     id?: string
     role_name: string
-    system_users?: tbl_userUncheckedCreateNestedManyWithoutRoleInput
+    tbl_users?: tbl_usersUncheckedCreateNestedManyWithoutRoleInput
   }
 
   export type tbl_rolesCreateOrConnectWithoutUsersInput = {
@@ -10344,50 +10543,12 @@ export namespace Prisma {
 
   export type tbl_rolesUpdateWithoutUsersInput = {
     role_name?: StringFieldUpdateOperationsInput | string
-    system_users?: tbl_userUpdateManyWithoutRoleNestedInput
+    tbl_users?: tbl_usersUpdateManyWithoutRoleNestedInput
   }
 
   export type tbl_rolesUncheckedUpdateWithoutUsersInput = {
     role_name?: StringFieldUpdateOperationsInput | string
-    system_users?: tbl_userUncheckedUpdateManyWithoutRoleNestedInput
-  }
-
-  export type tbl_rolesCreateWithoutSystem_usersInput = {
-    id?: string
-    role_name: string
-    users?: tbl_usersCreateNestedManyWithoutRoleInput
-  }
-
-  export type tbl_rolesUncheckedCreateWithoutSystem_usersInput = {
-    id?: string
-    role_name: string
-    users?: tbl_usersUncheckedCreateNestedManyWithoutRoleInput
-  }
-
-  export type tbl_rolesCreateOrConnectWithoutSystem_usersInput = {
-    where: tbl_rolesWhereUniqueInput
-    create: XOR<tbl_rolesCreateWithoutSystem_usersInput, tbl_rolesUncheckedCreateWithoutSystem_usersInput>
-  }
-
-  export type tbl_rolesUpsertWithoutSystem_usersInput = {
-    update: XOR<tbl_rolesUpdateWithoutSystem_usersInput, tbl_rolesUncheckedUpdateWithoutSystem_usersInput>
-    create: XOR<tbl_rolesCreateWithoutSystem_usersInput, tbl_rolesUncheckedCreateWithoutSystem_usersInput>
-    where?: tbl_rolesWhereInput
-  }
-
-  export type tbl_rolesUpdateToOneWithWhereWithoutSystem_usersInput = {
-    where?: tbl_rolesWhereInput
-    data: XOR<tbl_rolesUpdateWithoutSystem_usersInput, tbl_rolesUncheckedUpdateWithoutSystem_usersInput>
-  }
-
-  export type tbl_rolesUpdateWithoutSystem_usersInput = {
-    role_name?: StringFieldUpdateOperationsInput | string
-    users?: tbl_usersUpdateManyWithoutRoleNestedInput
-  }
-
-  export type tbl_rolesUncheckedUpdateWithoutSystem_usersInput = {
-    role_name?: StringFieldUpdateOperationsInput | string
-    users?: tbl_usersUncheckedUpdateManyWithoutRoleNestedInput
+    tbl_users?: tbl_usersUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type tbl_appointmentsCreateWithoutDoctorInput = {
@@ -10678,13 +10839,6 @@ export namespace Prisma {
     appointments?: tbl_appointmentsUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
-  export type tbl_usersCreateManyRoleInput = {
-    id?: string
-    names: string
-    email: string
-    password: string
-  }
-
   export type tbl_userCreateManyRoleInput = {
     id?: string
     u_names: string
@@ -10694,22 +10848,11 @@ export namespace Prisma {
     u_password: string
   }
 
-  export type tbl_usersUpdateWithoutRoleInput = {
-    names?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type tbl_usersUncheckedUpdateWithoutRoleInput = {
-    names?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type tbl_usersUncheckedUpdateManyWithoutRoleInput = {
-    names?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+  export type tbl_usersCreateManyRoleInput = {
+    id?: string
+    names: string
+    email: string
+    password: string
   }
 
   export type tbl_userUpdateWithoutRoleInput = {
@@ -10734,6 +10877,24 @@ export namespace Prisma {
     u_usersname?: StringFieldUpdateOperationsInput | string
     u_email?: StringFieldUpdateOperationsInput | string
     u_password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tbl_usersUpdateWithoutRoleInput = {
+    names?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tbl_usersUncheckedUpdateWithoutRoleInput = {
+    names?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tbl_usersUncheckedUpdateManyWithoutRoleInput = {
+    names?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
   }
 
   export type tbl_appointmentsCreateManyDoctorInput = {

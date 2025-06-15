@@ -10,22 +10,21 @@ datasource db {
 
 // Roles Table
 model tbl_roles {
-  id           String      @id @default(auto()) @map("_id") @db.ObjectId
-  role_name    String      @unique
-  users        tbl_users[]
-  system_users tbl_user[]
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  role_name String @unique
+
+  users     tbl_user[]
+  tbl_users tbl_users[]
 }
 
 // General Users Table
 model tbl_users {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
   names    String
-  email    String @unique
+  email    String    @unique
   password String
-  role_id  String @db.ObjectId
-
-  // Logical relation
-  role tbl_roles? @relation(fields: [role_id], references: [id])
+  role_id  String    @db.ObjectId
+  role     tbl_roles @relation(fields: [role_id], references: [id], onDelete: Cascade)
 }
 
 // System/Admin Users Table
@@ -38,7 +37,7 @@ model tbl_user {
   u_password  String
   u_role_id   String @db.ObjectId
 
-  role tbl_roles? @relation(fields: [u_role_id], references: [id])
+  role tbl_roles? @relation(fields: [u_role_id], references: [id], onDelete: Cascade)
 }
 
 // Doctors Table
@@ -59,7 +58,7 @@ model tbl_appointments {
   status           String
   created_at       DateTime @default(now())
 
-  doctor              tbl_doctors?              @relation(fields: [doctor_id], references: [id])
+  doctor              tbl_doctors?              @relation(fields: [doctor_id], references: [id], onDelete: Cascade)
   solved_appointments tbl_solved_appointments[]
 }
 
@@ -73,15 +72,18 @@ model tbl_solved_appointments {
   status           String
   solved_at        DateTime @default(now())
 
-  appointment tbl_appointments? @relation(fields: [appointment_id], references: [id])
-  doctor      tbl_doctors?      @relation(fields: [doctor_id], references: [id])
+  appointment tbl_appointments? @relation(fields: [appointment_id], references: [id], onDelete: Cascade)
+  doctor      tbl_doctors?      @relation(fields: [doctor_id], references: [id], onDelete: Cascade)
 }
 
 // Heart Monitoring Data Table
 model tbl_heart_data {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   patient_name String
-  heartbeat    Int
-  status       String
+  heartbeat    Int?
+  status       String?
+  nid          String?
+  ages         Int?
+  patient_code String   @unique
   recorded_at  DateTime @default(now())
 }

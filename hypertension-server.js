@@ -131,24 +131,81 @@ app.delete("/users/:id", async (req, res) => {
 
 // -------- Heart Data --------
 
-app.post("/heart-data", async (req, res) => {
+// endpoint to read data from doctor
+app.post("/heart-data-patient", async (req, res) => {
   try {
-    const { patient_name, heartbeat, status } = req.body;
-    if (!patient_name || !heartbeat || !status)
-      return res.status(400).json({ error: "All fields are required" });
+    const { patient_name, nid, ages } = req.body;
+
+    if (!patient_name)
+      return res.status(400).json({ error: "Patient name is required" });
+
+    // generate a six digits patient code
+    const patient_code = Math.floor(100000 + Math.random() * 900000).toString();
 
     const data = await prisma.tbl_heart_data.create({
-      data: { patient_name, heartbeat, status },
+      data: { patient_name, patient_code, nid, ages: parseInt(ages) },
     });
+
     res.status(201).json(data);
   } catch (error) {
     handleError(res, error);
   }
 });
 
-app.get("/heart-data", async (_, res) => {
+// endpoint to read data from devices
+app.post("/heart-data-device", async (req, res) => {
   try {
-    const data = await prisma.tbl_heart_data.findMany();
+    const { patient_code, heartbeat } = req.body;
+
+    if (!patient_code)
+      return res.status(400).json({ error: "Patient code is required" });
+    if (!heartbeat)
+      return res.status(400).json({ error: "Patient heartbeat is required" });
+
+    // retrieve a desired patient
+    const patient = await prisma.tbl_heart_data.findUnique({
+      where: { patient_code },
+    });
+    if (!patient)
+      return res
+        .status(404)
+        .json({ message: "No patient matched with given code" });
+
+    // update exist patient based on patient code
+    let status = "";
+
+    // Determine status only
+    if (heartbeat < 60) {
+      status = "Bradycardia";
+    } else if (heartbeat <= 100) {
+      status = "Normal";
+    } else if (heartbeat <= 120) {
+      status = "Mild Tachycardia";
+    } else if (heartbeat <= 150) {
+      status = "Moderate Tachycardia";
+    } else {
+      status = "Severe Tachycardia";
+    }
+
+    const data = await prisma.tbl_heart_data.update({
+      data: { heartbeat, status },
+      where: { id: patient.id },
+    });
+
+    res.status(201).json({
+      message: `${data.patient_name}'s record indicates  ${data.status} status`,
+      data,
+    });
+  } catch (error) {
+    handleError(res, error);
+  }
+});
+
+app.get("/heart-data", async (req, res) => {
+  try {
+    const data = await prisma.tbl_heart_data.findMany({
+      orderBy: { recorded_at: "desc" },
+    });
     res.json(data);
   } catch (error) {
     handleError(res, error);
