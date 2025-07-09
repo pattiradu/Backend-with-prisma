@@ -3,8 +3,16 @@ const { PrismaClient } = require("./generated/hypertension_system");
 const express = require("express");
 const app = express();
 const prisma = new PrismaClient();
+const cors = require("cors")
+
+const { chartsRoutes } = require("./graph-endpoint")
+
+app.use(cors())
 
 app.use(express.json());
+
+// chart routes
+app.use(chartsRoutes)
 
 // -------- tbl_roles --------
 
