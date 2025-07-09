@@ -86,4 +86,6 @@ model tbl_heart_data {
   ages         Int?
   patient_code String   @unique
   recorded_at  DateTime @default(now())
+
 }
+
