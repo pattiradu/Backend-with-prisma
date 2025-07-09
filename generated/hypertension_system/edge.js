@@ -175,7 +175,9 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
+
       "value": "D:\\patrick\\Backend-with-prisma\\generated\\hypertension_system",
+
       "fromEnvVar": null
     },
     "config": {
@@ -189,7 +191,9 @@ const config = {
       }
     ],
     "previewFeatures": [],
+
     "sourceFilePath": "D:\\patrick\\Backend-with-prisma\\prisma\\schema.prisma",
+
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -203,6 +207,9 @@ const config = {
     "db"
   ],
   "activeProvider": "mongodb",
+
+  "postinstall": false,
+
   "inlineDatasources": {
     "db": {
       "url": {

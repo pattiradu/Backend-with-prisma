@@ -5,15 +5,27 @@ const cors = require("cors");
 
 const app = express();
 const prisma = new PrismaClient();
+const cors = require("cors")
+
+const { chartsRoutes } = require("./graph-endpoint")
+
+app.use(cors())
 
 app.use(cors());
 app.use(express.json());
+
+
+// chart routes
+app.use(chartsRoutes)
+
+
 
 // Utility for error handling
 const handleError = (res, error) => {
   console.error(error);
   res.status(500).json({ error: error.message || "Internal Server Error" });
 };
+
 
 // -------- tbl_roles --------
 
