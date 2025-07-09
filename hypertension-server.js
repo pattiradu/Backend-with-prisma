@@ -5,11 +5,9 @@ const cors = require("cors");
 
 const app = express();
 const prisma = new PrismaClient();
-const cors = require("cors")
+
 
 const { chartsRoutes } = require("./graph-endpoint")
-
-app.use(cors())
 
 app.use(cors());
 app.use(express.json());
