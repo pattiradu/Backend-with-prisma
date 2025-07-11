@@ -136,12 +136,6 @@ exports.Prisma.Tbl_userScalarFieldEnum = {
   u_role_id: 'u_role_id'
 };
 
-exports.Prisma.Tbl_doctorsScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  specialization: 'specialization'
-};
-
 exports.Prisma.Tbl_appointmentsScalarFieldEnum = {
   id: 'id',
   doctor_id: 'doctor_id',
@@ -187,7 +181,6 @@ exports.Prisma.ModelName = {
   tbl_roles: 'tbl_roles',
   tbl_users: 'tbl_users',
   tbl_user: 'tbl_user',
-  tbl_doctors: 'tbl_doctors',
   tbl_appointments: 'tbl_appointments',
   tbl_solved_appointments: 'tbl_solved_appointments',
   tbl_heart_data: 'tbl_heart_data'

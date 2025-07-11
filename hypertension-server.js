@@ -6,24 +6,19 @@ const cors = require("cors");
 const app = express();
 const prisma = new PrismaClient();
 
-
-const { chartsRoutes } = require("./graph-endpoint")
+const { chartsRoutes } = require("./graph-endpoint");
 
 app.use(cors());
 app.use(express.json());
 
-
 // chart routes
-app.use(chartsRoutes)
-
-
+app.use(chartsRoutes);
 
 // Utility for error handling
 const handleError = (res, error) => {
   console.error(error);
   res.status(500).json({ error: error.message || "Internal Server Error" });
 };
-
 
 // -------- tbl_roles --------
 
@@ -181,10 +176,8 @@ app.post("/heart-data-device", async (req, res) => {
         .status(404)
         .json({ message: "No patient matched with given code" });
 
-    // update exist patient based on patient code
+    // determine status
     let status = "";
-
-    // Determine status only
     if (heartbeat < 60) {
       status = "Bradycardia";
     } else if (heartbeat <= 100) {
@@ -197,14 +190,46 @@ app.post("/heart-data-device", async (req, res) => {
       status = "Severe Tachycardia";
     }
 
-    const data = await prisma.tbl_heart_data.update({
+    // update the heart data
+    const updatedData = await prisma.tbl_heart_data.update({
       data: { heartbeat, status },
       where: { id: patient.id },
     });
 
+    // assign a doctor (you may need more logic to choose one dynamically)
+
+    // find role id of 'doctor'
+    const doctorRole = await prisma.tbl_roles.findUnique({
+      where: { role_name: "Doctor" },
+    });
+
+    if (!doctorRole) {
+      return res.status(500).json({ message: "Doctor role not found" });
+    }
+
+    // find any user who has doctor role
+    const doctorUser = await prisma.tbl_users.findFirst({
+      where: { role_id: doctorRole.id },
+    });
+
+    if (!doctorUser) {
+      return res.status(500).json({ message: "No doctor user found" });
+    }
+
+    // create a new appointment
+    const newAppointment = await prisma.tbl_appointments.create({
+      data: {
+        doctor_id: doctorUser.id,
+        patient_name: updatedData.patient_name,
+        appointment_date: new Date(),
+        status: "Pending",
+      },
+    });
+
     res.status(201).json({
-      message: `${data.patient_name}'s record indicates  ${data.status} status`,
-      data,
+      message: `${updatedData.patient_name}'s record indicates ${updatedData.status} status. Appointment scheduled.`,
+      heart_data: updatedData,
+      appointment: newAppointment,
     });
   } catch (error) {
     handleError(res, error);
@@ -247,6 +272,28 @@ app.delete("/heart-data/:id", async (req, res) => {
 });
 
 // -------- Server --------
+
+// APPOINTMENTS
+app.get("/appointments", async (req, res) => {
+  try {
+    const appointments = await prisma.tbl_appointments.findMany({
+      orderBy: {
+        appointment_date: "desc",
+      },
+      include: {
+        doctor: true, // include doctor details
+      },
+    });
+
+    const doctor = await prisma.tbl_users.findFirst({
+      where: { id: appointments[0].doctor_id },
+    });
+
+    res.status(200).json(appointments);
+  } catch (error) {
+    handleError(res, error);
+  }
+});
 
 app.listen(process.env.PORT || 5000, () =>
   console.log("Server running on http://localhost:5000")
