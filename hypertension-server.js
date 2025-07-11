@@ -1,3 +1,4 @@
+require("dotenv").config();
 // Import Prisma and Express
 const { PrismaClient } = require("./generated/hypertension_system");
 const express = require("express");
@@ -7,6 +8,8 @@ const app = express();
 const prisma = new PrismaClient();
 
 const { chartsRoutes } = require("./graph-endpoint");
+const { sendBeautifulEmail } = require("./mailer");
+const moment = require("moment");
 
 app.use(cors());
 app.use(express.json());
@@ -171,10 +174,12 @@ app.post("/heart-data-device", async (req, res) => {
     const patient = await prisma.tbl_heart_data.findUnique({
       where: { patient_code },
     });
-    if (!patient)
+
+    if (!patient) {
       return res
         .status(404)
         .json({ message: "No patient matched with given code" });
+    }
 
     // determine status
     let status = "";
@@ -196,8 +201,14 @@ app.post("/heart-data-device", async (req, res) => {
       where: { id: patient.id },
     });
 
-    // assign a doctor (you may need more logic to choose one dynamically)
+    if (updatedData.status == "Normal") {
+      return res.status(201).json({
+        message: `${updatedData.patient_name}'s record indicates ${updatedData.status} status. No Appointment scheduled due to good heartbeat.`,
+        heart_data: updatedData,
+      });
+    }
 
+    // assign a doctor (you may need more logic to choose one dynamically)
     // find role id of 'doctor'
     const doctorRole = await prisma.tbl_roles.findUnique({
       where: { role_name: "Doctor" },
@@ -226,10 +237,43 @@ app.post("/heart-data-device", async (req, res) => {
       },
     });
 
+    // send email to the doctor who received an appointment
+    const message = `Dear Dr. ${doctorUser.names},<br><br>
+    You have a new appointment scheduled with a patient ${
+      patient.patient_name
+    }.<br><br>
+
+    <strong>Patient Details:</strong><br>
+    • Name: ${patient.patient_name}<br>
+    • Code: <span style="cplor:blue; font-weight:bold;">${
+      patient.patient_code
+    }</span><br>
+    • Heart Beat: ${updatedData.heartbeat}<br>
+    • Status: ${updatedData.status}<br>
+    • Registered: ${moment(patient.recorded_at).fromNow()}<br>
+    • Ages: ${patient.ages}<br><br>
+
+    <strong>Appointment Details:</strong><br>
+    • Recorded: ${moment(newAppointment.appointment_date).calendar()}<br>
+    • Stataus: ${newAppointment.status}<br>
+    • Reason: Follow-up Consultation<br><br>
+
+    Please log in to your dashboard for more details.<br><br>
+
+    Best regards,<br>`;
+
+    // trigger email to be sent
+    await sendBeautifulEmail({
+      to: doctorUser.email,
+      message: message,
+      subject: `Appointment with ${patient.patient_name}`,
+    });
+
     res.status(201).json({
       message: `${updatedData.patient_name}'s record indicates ${updatedData.status} status. Appointment scheduled.`,
-      heart_data: updatedData,
-      appointment: newAppointment,
+      email: `Email sent to Dr ${doctorUser.names} - ${doctorUser.email}`,
+      // heart_data: updatedData,
+      // appointment: newAppointment,
     });
   } catch (error) {
     handleError(res, error);
