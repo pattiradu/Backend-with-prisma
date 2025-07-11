@@ -295,6 +295,50 @@ app.get("/appointments", async (req, res) => {
   }
 });
 
+app.delete("/appointments/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const existAppointment = await prisma.tbl_appointments.findFirst({
+      where: { id },
+    });
+    if (!existAppointment) {
+      return res
+        .status(404)
+        .json({ message: "can not found specified appintment" });
+    }
+    await prisma.tbl_appointments.delete({ where: { id } });
+    res.json({ success: "Appointment deleted successfully!" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: "Error occured while deleting an apppointment" });
+  }
+});
+
+// resolve appoints
+app.patch("/appointments/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const existAppointment = await prisma.tbl_appointments.findFirst({
+      where: { id },
+    });
+
+    await prisma.tbl_appointments.update({
+      where: { id },
+      data: {
+        status: existAppointment.status == "Resolved" ? "Pending" : "Resolved",
+      },
+    });
+    res.json({ success: "Appointment resolved successfully!" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: "Error occured while resolving an apppointment" });
+  }
+});
+
 app.listen(process.env.PORT || 5000, () =>
   console.log("Server running on http://localhost:5000")
 );
