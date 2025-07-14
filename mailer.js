@@ -1,13 +1,14 @@
+require('dotenv').config();
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // Use TLS
-  auth: {
-    user: process.env.MAIL_USERNAME,
-    pass: process.env.MAIL_PASSWORD,
-  },
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // Use TLS
+    auth: {
+        user: process.env.MAIL_USERNAME,
+        pass: process.env.MAIL_PASSWORD,
+    },
 });
 
 const generateHtmlTemplate = ({ title, message, footer }) => `
@@ -72,23 +73,23 @@ const generateHtmlTemplate = ({ title, message, footer }) => `
 </html>
 `;
 
-module.exports.sendBeautifulEmail = async ({ to, subject, message }) => {
-  const html = generateHtmlTemplate({
-    title: subject,
-    message,
-    footer: "This message was sent by system no need to reply",
-  });
-
-  try {
-    await transporter.sendMail({
-      from: process.env.MAIL_FROM_ADDRESS,
-      to,
-      subject,
-      html,
-      text: message, // fallback for plain text email clients
+module.exports.sendBeautifulEmail = async({ to, subject, message }) => {
+    const html = generateHtmlTemplate({
+        title: subject,
+        message,
+        footer: "This message was sent by system. No need to reply.",
     });
-    console.log(`📨 Email sent to ${to}`);
-  } catch (error) {
-    console.error("❌ Failed to send email:", error.message);
-  }
+
+    try {
+        await transporter.sendMail({
+            from: process.env.MAIL_FROM_ADDRESS,
+            to,
+            subject,
+            html,
+            text: message,
+        });
+        console.log(`📨 Email sent to ${to}`);
+    } catch (error) {
+        console.error("❌ Failed to send email:", error.message);
+    }
 };
