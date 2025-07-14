@@ -1,3 +1,4 @@
+require("dotenv").config();
 // Import Prisma and Express
 const { PrismaClient } = require("./generated/hypertension_system");
 const express = require("express");
@@ -5,27 +6,22 @@ const cors = require("cors");
 
 const app = express();
 const prisma = new PrismaClient();
-const cors = require("cors")
 
-const { chartsRoutes } = require("./graph-endpoint")
-
-app.use(cors())
+const { chartsRoutes } = require("./graph-endpoint");
+const { sendBeautifulEmail } = require("./mailer");
+const moment = require("moment");
 
 app.use(cors());
 app.use(express.json());
 
-
 // chart routes
-app.use(chartsRoutes)
-
-
+app.use(chartsRoutes);
 
 // Utility for error handling
 const handleError = (res, error) => {
   console.error(error);
   res.status(500).json({ error: error.message || "Internal Server Error" });
 };
-
 
 // -------- tbl_roles --------
 
@@ -178,15 +174,15 @@ app.post("/heart-data-device", async (req, res) => {
     const patient = await prisma.tbl_heart_data.findUnique({
       where: { patient_code },
     });
-    if (!patient)
+
+    if (!patient) {
       return res
         .status(404)
         .json({ message: "No patient matched with given code" });
+    }
 
-    // update exist patient based on patient code
+    // determine status
     let status = "";
-
-    // Determine status only
     if (heartbeat < 60) {
       status = "Bradycardia";
     } else if (heartbeat <= 100) {
@@ -199,14 +195,85 @@ app.post("/heart-data-device", async (req, res) => {
       status = "Severe Tachycardia";
     }
 
-    const data = await prisma.tbl_heart_data.update({
+    // update the heart data
+    const updatedData = await prisma.tbl_heart_data.update({
       data: { heartbeat, status },
       where: { id: patient.id },
     });
 
+    if (updatedData.status == "Normal") {
+      return res.status(201).json({
+        message: `${updatedData.patient_name}'s record indicates ${updatedData.status} status. No Appointment scheduled due to good heartbeat.`,
+        heart_data: updatedData,
+      });
+    }
+
+    // assign a doctor (you may need more logic to choose one dynamically)
+    // find role id of 'doctor'
+    const doctorRole = await prisma.tbl_roles.findUnique({
+      where: { role_name: "Doctor" },
+    });
+
+    if (!doctorRole) {
+      return res.status(500).json({ message: "Doctor role not found" });
+    }
+
+    // find any user who has doctor role
+    const doctorUser = await prisma.tbl_users.findFirst({
+      where: { role_id: doctorRole.id },
+    });
+
+    if (!doctorUser) {
+      return res.status(500).json({ message: "No doctor user found" });
+    }
+
+    // create a new appointment
+    const newAppointment = await prisma.tbl_appointments.create({
+      data: {
+        doctor_id: doctorUser.id,
+        patient_name: updatedData.patient_name,
+        appointment_date: new Date(),
+        status: "Pending",
+      },
+    });
+
+    // send email to the doctor who received an appointment
+    const message = `Dear Dr. ${doctorUser.names},<br><br>
+    You have a new appointment scheduled with a patient ${
+      patient.patient_name
+    }.<br><br>
+
+    <strong>Patient Details:</strong><br>
+    • Name: ${patient.patient_name}<br>
+    • Code: <span style="cplor:blue; font-weight:bold;">${
+      patient.patient_code
+    }</span><br>
+    • Heart Beat: ${updatedData.heartbeat}<br>
+    • Status: ${updatedData.status}<br>
+    • Registered: ${moment(patient.recorded_at).fromNow()}<br>
+    • Ages: ${patient.ages}<br><br>
+
+    <strong>Appointment Details:</strong><br>
+    • Recorded: ${moment(newAppointment.appointment_date).calendar()}<br>
+    • Stataus: ${newAppointment.status}<br>
+    • Reason: Follow-up Consultation<br><br>
+
+    Please log in to your dashboard for more details.<br><br>
+
+    Best regards,<br>`;
+
+    // trigger email to be sent
+    await sendBeautifulEmail({
+      to: doctorUser.email,
+      message: message,
+      subject: `Appointment with ${patient.patient_name}`,
+    });
+
     res.status(201).json({
-      message: `${data.patient_name}'s record indicates  ${data.status} status`,
-      data,
+      message: `${updatedData.patient_name}'s record indicates ${updatedData.status} status. Appointment scheduled.`,
+      email: `Email sent to Dr ${doctorUser.names} - ${doctorUser.email}`,
+      // heart_data: updatedData,
+      // appointment: newAppointment,
     });
   } catch (error) {
     handleError(res, error);
@@ -249,6 +316,72 @@ app.delete("/heart-data/:id", async (req, res) => {
 });
 
 // -------- Server --------
+
+// APPOINTMENTS
+app.get("/appointments", async (req, res) => {
+  try {
+    const appointments = await prisma.tbl_appointments.findMany({
+      orderBy: {
+        appointment_date: "desc",
+      },
+      include: {
+        doctor: true, // include doctor details
+      },
+    });
+
+    const doctor = await prisma.tbl_users.findFirst({
+      where: { id: appointments[0].doctor_id },
+    });
+
+    res.status(200).json(appointments);
+  } catch (error) {
+    handleError(res, error);
+  }
+});
+
+app.delete("/appointments/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const existAppointment = await prisma.tbl_appointments.findFirst({
+      where: { id },
+    });
+    if (!existAppointment) {
+      return res
+        .status(404)
+        .json({ message: "can not found specified appintment" });
+    }
+    await prisma.tbl_appointments.delete({ where: { id } });
+    res.json({ success: "Appointment deleted successfully!" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: "Error occured while deleting an apppointment" });
+  }
+});
+
+// resolve appoints
+app.patch("/appointments/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const existAppointment = await prisma.tbl_appointments.findFirst({
+      where: { id },
+    });
+
+    await prisma.tbl_appointments.update({
+      where: { id },
+      data: {
+        status: existAppointment.status == "Resolved" ? "Pending" : "Resolved",
+      },
+    });
+    res.json({ success: "Appointment resolved successfully!" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: "Error occured while resolving an apppointment" });
+  }
+});
 
 app.listen(process.env.PORT || 5000, () =>
   console.log("Server running on http://localhost:5000")

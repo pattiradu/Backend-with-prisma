@@ -29,11 +29,6 @@ export type tbl_users = $Result.DefaultSelection<Prisma.$tbl_usersPayload>
  */
 export type tbl_user = $Result.DefaultSelection<Prisma.$tbl_userPayload>
 /**
- * Model tbl_doctors
- * 
- */
-export type tbl_doctors = $Result.DefaultSelection<Prisma.$tbl_doctorsPayload>
-/**
  * Model tbl_appointments
  * 
  */
@@ -170,16 +165,6 @@ export class PrismaClient<
     * ```
     */
   get tbl_user(): Prisma.tbl_userDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.tbl_doctors`: Exposes CRUD operations for the **tbl_doctors** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Tbl_doctors
-    * const tbl_doctors = await prisma.tbl_doctors.findMany()
-    * ```
-    */
-  get tbl_doctors(): Prisma.tbl_doctorsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.tbl_appointments`: Exposes CRUD operations for the **tbl_appointments** model.
@@ -653,7 +638,6 @@ export namespace Prisma {
     tbl_roles: 'tbl_roles',
     tbl_users: 'tbl_users',
     tbl_user: 'tbl_user',
-    tbl_doctors: 'tbl_doctors',
     tbl_appointments: 'tbl_appointments',
     tbl_solved_appointments: 'tbl_solved_appointments',
     tbl_heart_data: 'tbl_heart_data'
@@ -675,7 +659,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "tbl_roles" | "tbl_users" | "tbl_user" | "tbl_doctors" | "tbl_appointments" | "tbl_solved_appointments" | "tbl_heart_data"
+      modelProps: "tbl_roles" | "tbl_users" | "tbl_user" | "tbl_appointments" | "tbl_solved_appointments" | "tbl_heart_data"
       txIsolationLevel: never
     }
     model: {
@@ -898,80 +882,6 @@ export namespace Prisma {
           count: {
             args: Prisma.tbl_userCountArgs<ExtArgs>
             result: $Utils.Optional<Tbl_userCountAggregateOutputType> | number
-          }
-        }
-      }
-      tbl_doctors: {
-        payload: Prisma.$tbl_doctorsPayload<ExtArgs>
-        fields: Prisma.tbl_doctorsFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.tbl_doctorsFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tbl_doctorsPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.tbl_doctorsFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tbl_doctorsPayload>
-          }
-          findFirst: {
-            args: Prisma.tbl_doctorsFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tbl_doctorsPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.tbl_doctorsFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tbl_doctorsPayload>
-          }
-          findMany: {
-            args: Prisma.tbl_doctorsFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tbl_doctorsPayload>[]
-          }
-          create: {
-            args: Prisma.tbl_doctorsCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tbl_doctorsPayload>
-          }
-          createMany: {
-            args: Prisma.tbl_doctorsCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.tbl_doctorsDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tbl_doctorsPayload>
-          }
-          update: {
-            args: Prisma.tbl_doctorsUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tbl_doctorsPayload>
-          }
-          deleteMany: {
-            args: Prisma.tbl_doctorsDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.tbl_doctorsUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.tbl_doctorsUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tbl_doctorsPayload>
-          }
-          aggregate: {
-            args: Prisma.Tbl_doctorsAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTbl_doctors>
-          }
-          groupBy: {
-            args: Prisma.tbl_doctorsGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Tbl_doctorsGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.tbl_doctorsFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.tbl_doctorsAggregateRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          count: {
-            args: Prisma.tbl_doctorsCountArgs<ExtArgs>
-            result: $Utils.Optional<Tbl_doctorsCountAggregateOutputType> | number
           }
         }
       }
@@ -1271,7 +1181,6 @@ export namespace Prisma {
     tbl_roles?: tbl_rolesOmit
     tbl_users?: tbl_usersOmit
     tbl_user?: tbl_userOmit
-    tbl_doctors?: tbl_doctorsOmit
     tbl_appointments?: tbl_appointmentsOmit
     tbl_solved_appointments?: tbl_solved_appointmentsOmit
     tbl_heart_data?: tbl_heart_dataOmit
@@ -1405,41 +1314,63 @@ export namespace Prisma {
 
 
   /**
-   * Count Type Tbl_doctorsCountOutputType
+   * Count Type Tbl_usersCountOutputType
    */
 
-  export type Tbl_doctorsCountOutputType = {
-    appointments: number
-    solved: number
+  export type Tbl_usersCountOutputType = {
+    tbl_appointments: number
   }
 
-  export type Tbl_doctorsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    appointments?: boolean | Tbl_doctorsCountOutputTypeCountAppointmentsArgs
-    solved?: boolean | Tbl_doctorsCountOutputTypeCountSolvedArgs
+  export type Tbl_usersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tbl_appointments?: boolean | Tbl_usersCountOutputTypeCountTbl_appointmentsArgs
   }
 
   // Custom InputTypes
   /**
-   * Tbl_doctorsCountOutputType without action
+   * Tbl_usersCountOutputType without action
    */
-  export type Tbl_doctorsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Tbl_usersCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Tbl_doctorsCountOutputType
+     * Select specific fields to fetch from the Tbl_usersCountOutputType
      */
-    select?: Tbl_doctorsCountOutputTypeSelect<ExtArgs> | null
+    select?: Tbl_usersCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * Tbl_doctorsCountOutputType without action
+   * Tbl_usersCountOutputType without action
    */
-  export type Tbl_doctorsCountOutputTypeCountAppointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Tbl_usersCountOutputTypeCountTbl_appointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: tbl_appointmentsWhereInput
   }
 
+
   /**
-   * Tbl_doctorsCountOutputType without action
+   * Count Type Tbl_userCountOutputType
    */
-  export type Tbl_doctorsCountOutputTypeCountSolvedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+
+  export type Tbl_userCountOutputType = {
+    solved: number
+  }
+
+  export type Tbl_userCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    solved?: boolean | Tbl_userCountOutputTypeCountSolvedArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Tbl_userCountOutputType without action
+   */
+  export type Tbl_userCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tbl_userCountOutputType
+     */
+    select?: Tbl_userCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Tbl_userCountOutputType without action
+   */
+  export type Tbl_userCountOutputTypeCountSolvedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: tbl_solved_appointmentsWhereInput
   }
 
@@ -2644,6 +2575,8 @@ export namespace Prisma {
     password?: boolean
     role_id?: boolean
     role?: boolean | tbl_rolesDefaultArgs<ExtArgs>
+    tbl_appointments?: boolean | tbl_users$tbl_appointmentsArgs<ExtArgs>
+    _count?: boolean | Tbl_usersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tbl_users"]>
 
 
@@ -2659,12 +2592,15 @@ export namespace Prisma {
   export type tbl_usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "names" | "email" | "password" | "role_id", ExtArgs["result"]["tbl_users"]>
   export type tbl_usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     role?: boolean | tbl_rolesDefaultArgs<ExtArgs>
+    tbl_appointments?: boolean | tbl_users$tbl_appointmentsArgs<ExtArgs>
+    _count?: boolean | Tbl_usersCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $tbl_usersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "tbl_users"
     objects: {
       role: Prisma.$tbl_rolesPayload<ExtArgs>
+      tbl_appointments: Prisma.$tbl_appointmentsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3036,6 +2972,7 @@ export namespace Prisma {
   export interface Prisma__tbl_usersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     role<T extends tbl_rolesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tbl_rolesDefaultArgs<ExtArgs>>): Prisma__tbl_rolesClient<$Result.GetResult<Prisma.$tbl_rolesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tbl_appointments<T extends tbl_users$tbl_appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, tbl_users$tbl_appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tbl_appointmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3440,6 +3377,30 @@ export namespace Prisma {
   }
 
   /**
+   * tbl_users.tbl_appointments
+   */
+  export type tbl_users$tbl_appointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl_appointments
+     */
+    select?: tbl_appointmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl_appointments
+     */
+    omit?: tbl_appointmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tbl_appointmentsInclude<ExtArgs> | null
+    where?: tbl_appointmentsWhereInput
+    orderBy?: tbl_appointmentsOrderByWithRelationInput | tbl_appointmentsOrderByWithRelationInput[]
+    cursor?: tbl_appointmentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Tbl_appointmentsScalarFieldEnum | Tbl_appointmentsScalarFieldEnum[]
+  }
+
+  /**
    * tbl_users without action
    */
   export type tbl_usersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3639,6 +3600,8 @@ export namespace Prisma {
     u_password?: boolean
     u_role_id?: boolean
     role?: boolean | tbl_user$roleArgs<ExtArgs>
+    solved?: boolean | tbl_user$solvedArgs<ExtArgs>
+    _count?: boolean | Tbl_userCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tbl_user"]>
 
 
@@ -3656,12 +3619,15 @@ export namespace Prisma {
   export type tbl_userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "u_names" | "u_phone" | "u_usersname" | "u_email" | "u_password" | "u_role_id", ExtArgs["result"]["tbl_user"]>
   export type tbl_userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     role?: boolean | tbl_user$roleArgs<ExtArgs>
+    solved?: boolean | tbl_user$solvedArgs<ExtArgs>
+    _count?: boolean | Tbl_userCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $tbl_userPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "tbl_user"
     objects: {
       role: Prisma.$tbl_rolesPayload<ExtArgs> | null
+      solved: Prisma.$tbl_solved_appointmentsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4035,6 +4001,7 @@ export namespace Prisma {
   export interface Prisma__tbl_userClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     role<T extends tbl_user$roleArgs<ExtArgs> = {}>(args?: Subset<T, tbl_user$roleArgs<ExtArgs>>): Prisma__tbl_rolesClient<$Result.GetResult<Prisma.$tbl_rolesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    solved<T extends tbl_user$solvedArgs<ExtArgs> = {}>(args?: Subset<T, tbl_user$solvedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tbl_solved_appointmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4460,996 +4427,9 @@ export namespace Prisma {
   }
 
   /**
-   * tbl_user without action
+   * tbl_user.solved
    */
-  export type tbl_userDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_user
-     */
-    select?: tbl_userSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_user
-     */
-    omit?: tbl_userOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_userInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model tbl_doctors
-   */
-
-  export type AggregateTbl_doctors = {
-    _count: Tbl_doctorsCountAggregateOutputType | null
-    _min: Tbl_doctorsMinAggregateOutputType | null
-    _max: Tbl_doctorsMaxAggregateOutputType | null
-  }
-
-  export type Tbl_doctorsMinAggregateOutputType = {
-    id: string | null
-    name: string | null
-    specialization: string | null
-  }
-
-  export type Tbl_doctorsMaxAggregateOutputType = {
-    id: string | null
-    name: string | null
-    specialization: string | null
-  }
-
-  export type Tbl_doctorsCountAggregateOutputType = {
-    id: number
-    name: number
-    specialization: number
-    _all: number
-  }
-
-
-  export type Tbl_doctorsMinAggregateInputType = {
-    id?: true
-    name?: true
-    specialization?: true
-  }
-
-  export type Tbl_doctorsMaxAggregateInputType = {
-    id?: true
-    name?: true
-    specialization?: true
-  }
-
-  export type Tbl_doctorsCountAggregateInputType = {
-    id?: true
-    name?: true
-    specialization?: true
-    _all?: true
-  }
-
-  export type Tbl_doctorsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which tbl_doctors to aggregate.
-     */
-    where?: tbl_doctorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tbl_doctors to fetch.
-     */
-    orderBy?: tbl_doctorsOrderByWithRelationInput | tbl_doctorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: tbl_doctorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tbl_doctors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tbl_doctors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned tbl_doctors
-    **/
-    _count?: true | Tbl_doctorsCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Tbl_doctorsMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Tbl_doctorsMaxAggregateInputType
-  }
-
-  export type GetTbl_doctorsAggregateType<T extends Tbl_doctorsAggregateArgs> = {
-        [P in keyof T & keyof AggregateTbl_doctors]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateTbl_doctors[P]>
-      : GetScalarType<T[P], AggregateTbl_doctors[P]>
-  }
-
-
-
-
-  export type tbl_doctorsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: tbl_doctorsWhereInput
-    orderBy?: tbl_doctorsOrderByWithAggregationInput | tbl_doctorsOrderByWithAggregationInput[]
-    by: Tbl_doctorsScalarFieldEnum[] | Tbl_doctorsScalarFieldEnum
-    having?: tbl_doctorsScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Tbl_doctorsCountAggregateInputType | true
-    _min?: Tbl_doctorsMinAggregateInputType
-    _max?: Tbl_doctorsMaxAggregateInputType
-  }
-
-  export type Tbl_doctorsGroupByOutputType = {
-    id: string
-    name: string
-    specialization: string
-    _count: Tbl_doctorsCountAggregateOutputType | null
-    _min: Tbl_doctorsMinAggregateOutputType | null
-    _max: Tbl_doctorsMaxAggregateOutputType | null
-  }
-
-  type GetTbl_doctorsGroupByPayload<T extends tbl_doctorsGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Tbl_doctorsGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Tbl_doctorsGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Tbl_doctorsGroupByOutputType[P]>
-            : GetScalarType<T[P], Tbl_doctorsGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type tbl_doctorsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    specialization?: boolean
-    appointments?: boolean | tbl_doctors$appointmentsArgs<ExtArgs>
-    solved?: boolean | tbl_doctors$solvedArgs<ExtArgs>
-    _count?: boolean | Tbl_doctorsCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["tbl_doctors"]>
-
-
-
-  export type tbl_doctorsSelectScalar = {
-    id?: boolean
-    name?: boolean
-    specialization?: boolean
-  }
-
-  export type tbl_doctorsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "specialization", ExtArgs["result"]["tbl_doctors"]>
-  export type tbl_doctorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    appointments?: boolean | tbl_doctors$appointmentsArgs<ExtArgs>
-    solved?: boolean | tbl_doctors$solvedArgs<ExtArgs>
-    _count?: boolean | Tbl_doctorsCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-  export type $tbl_doctorsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "tbl_doctors"
-    objects: {
-      appointments: Prisma.$tbl_appointmentsPayload<ExtArgs>[]
-      solved: Prisma.$tbl_solved_appointmentsPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: string
-      specialization: string
-    }, ExtArgs["result"]["tbl_doctors"]>
-    composites: {}
-  }
-
-  type tbl_doctorsGetPayload<S extends boolean | null | undefined | tbl_doctorsDefaultArgs> = $Result.GetResult<Prisma.$tbl_doctorsPayload, S>
-
-  type tbl_doctorsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<tbl_doctorsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Tbl_doctorsCountAggregateInputType | true
-    }
-
-  export interface tbl_doctorsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tbl_doctors'], meta: { name: 'tbl_doctors' } }
-    /**
-     * Find zero or one Tbl_doctors that matches the filter.
-     * @param {tbl_doctorsFindUniqueArgs} args - Arguments to find a Tbl_doctors
-     * @example
-     * // Get one Tbl_doctors
-     * const tbl_doctors = await prisma.tbl_doctors.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends tbl_doctorsFindUniqueArgs>(args: SelectSubset<T, tbl_doctorsFindUniqueArgs<ExtArgs>>): Prisma__tbl_doctorsClient<$Result.GetResult<Prisma.$tbl_doctorsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Tbl_doctors that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {tbl_doctorsFindUniqueOrThrowArgs} args - Arguments to find a Tbl_doctors
-     * @example
-     * // Get one Tbl_doctors
-     * const tbl_doctors = await prisma.tbl_doctors.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends tbl_doctorsFindUniqueOrThrowArgs>(args: SelectSubset<T, tbl_doctorsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tbl_doctorsClient<$Result.GetResult<Prisma.$tbl_doctorsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Tbl_doctors that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tbl_doctorsFindFirstArgs} args - Arguments to find a Tbl_doctors
-     * @example
-     * // Get one Tbl_doctors
-     * const tbl_doctors = await prisma.tbl_doctors.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends tbl_doctorsFindFirstArgs>(args?: SelectSubset<T, tbl_doctorsFindFirstArgs<ExtArgs>>): Prisma__tbl_doctorsClient<$Result.GetResult<Prisma.$tbl_doctorsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Tbl_doctors that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tbl_doctorsFindFirstOrThrowArgs} args - Arguments to find a Tbl_doctors
-     * @example
-     * // Get one Tbl_doctors
-     * const tbl_doctors = await prisma.tbl_doctors.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends tbl_doctorsFindFirstOrThrowArgs>(args?: SelectSubset<T, tbl_doctorsFindFirstOrThrowArgs<ExtArgs>>): Prisma__tbl_doctorsClient<$Result.GetResult<Prisma.$tbl_doctorsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Tbl_doctors that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tbl_doctorsFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Tbl_doctors
-     * const tbl_doctors = await prisma.tbl_doctors.findMany()
-     * 
-     * // Get first 10 Tbl_doctors
-     * const tbl_doctors = await prisma.tbl_doctors.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const tbl_doctorsWithIdOnly = await prisma.tbl_doctors.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends tbl_doctorsFindManyArgs>(args?: SelectSubset<T, tbl_doctorsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tbl_doctorsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Tbl_doctors.
-     * @param {tbl_doctorsCreateArgs} args - Arguments to create a Tbl_doctors.
-     * @example
-     * // Create one Tbl_doctors
-     * const Tbl_doctors = await prisma.tbl_doctors.create({
-     *   data: {
-     *     // ... data to create a Tbl_doctors
-     *   }
-     * })
-     * 
-     */
-    create<T extends tbl_doctorsCreateArgs>(args: SelectSubset<T, tbl_doctorsCreateArgs<ExtArgs>>): Prisma__tbl_doctorsClient<$Result.GetResult<Prisma.$tbl_doctorsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Tbl_doctors.
-     * @param {tbl_doctorsCreateManyArgs} args - Arguments to create many Tbl_doctors.
-     * @example
-     * // Create many Tbl_doctors
-     * const tbl_doctors = await prisma.tbl_doctors.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends tbl_doctorsCreateManyArgs>(args?: SelectSubset<T, tbl_doctorsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Tbl_doctors.
-     * @param {tbl_doctorsDeleteArgs} args - Arguments to delete one Tbl_doctors.
-     * @example
-     * // Delete one Tbl_doctors
-     * const Tbl_doctors = await prisma.tbl_doctors.delete({
-     *   where: {
-     *     // ... filter to delete one Tbl_doctors
-     *   }
-     * })
-     * 
-     */
-    delete<T extends tbl_doctorsDeleteArgs>(args: SelectSubset<T, tbl_doctorsDeleteArgs<ExtArgs>>): Prisma__tbl_doctorsClient<$Result.GetResult<Prisma.$tbl_doctorsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Tbl_doctors.
-     * @param {tbl_doctorsUpdateArgs} args - Arguments to update one Tbl_doctors.
-     * @example
-     * // Update one Tbl_doctors
-     * const tbl_doctors = await prisma.tbl_doctors.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends tbl_doctorsUpdateArgs>(args: SelectSubset<T, tbl_doctorsUpdateArgs<ExtArgs>>): Prisma__tbl_doctorsClient<$Result.GetResult<Prisma.$tbl_doctorsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Tbl_doctors.
-     * @param {tbl_doctorsDeleteManyArgs} args - Arguments to filter Tbl_doctors to delete.
-     * @example
-     * // Delete a few Tbl_doctors
-     * const { count } = await prisma.tbl_doctors.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends tbl_doctorsDeleteManyArgs>(args?: SelectSubset<T, tbl_doctorsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Tbl_doctors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tbl_doctorsUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Tbl_doctors
-     * const tbl_doctors = await prisma.tbl_doctors.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends tbl_doctorsUpdateManyArgs>(args: SelectSubset<T, tbl_doctorsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Tbl_doctors.
-     * @param {tbl_doctorsUpsertArgs} args - Arguments to update or create a Tbl_doctors.
-     * @example
-     * // Update or create a Tbl_doctors
-     * const tbl_doctors = await prisma.tbl_doctors.upsert({
-     *   create: {
-     *     // ... data to create a Tbl_doctors
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Tbl_doctors we want to update
-     *   }
-     * })
-     */
-    upsert<T extends tbl_doctorsUpsertArgs>(args: SelectSubset<T, tbl_doctorsUpsertArgs<ExtArgs>>): Prisma__tbl_doctorsClient<$Result.GetResult<Prisma.$tbl_doctorsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Tbl_doctors that matches the filter.
-     * @param {tbl_doctorsFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const tbl_doctors = await prisma.tbl_doctors.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: tbl_doctorsFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Tbl_doctors.
-     * @param {tbl_doctorsAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const tbl_doctors = await prisma.tbl_doctors.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: tbl_doctorsAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
-
-
-    /**
-     * Count the number of Tbl_doctors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tbl_doctorsCountArgs} args - Arguments to filter Tbl_doctors to count.
-     * @example
-     * // Count the number of Tbl_doctors
-     * const count = await prisma.tbl_doctors.count({
-     *   where: {
-     *     // ... the filter for the Tbl_doctors we want to count
-     *   }
-     * })
-    **/
-    count<T extends tbl_doctorsCountArgs>(
-      args?: Subset<T, tbl_doctorsCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Tbl_doctorsCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Tbl_doctors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Tbl_doctorsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Tbl_doctorsAggregateArgs>(args: Subset<T, Tbl_doctorsAggregateArgs>): Prisma.PrismaPromise<GetTbl_doctorsAggregateType<T>>
-
-    /**
-     * Group by Tbl_doctors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tbl_doctorsGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends tbl_doctorsGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: tbl_doctorsGroupByArgs['orderBy'] }
-        : { orderBy?: tbl_doctorsGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, tbl_doctorsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTbl_doctorsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the tbl_doctors model
-   */
-  readonly fields: tbl_doctorsFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for tbl_doctors.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__tbl_doctorsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    appointments<T extends tbl_doctors$appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, tbl_doctors$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tbl_appointmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    solved<T extends tbl_doctors$solvedArgs<ExtArgs> = {}>(args?: Subset<T, tbl_doctors$solvedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tbl_solved_appointmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the tbl_doctors model
-   */
-  interface tbl_doctorsFieldRefs {
-    readonly id: FieldRef<"tbl_doctors", 'String'>
-    readonly name: FieldRef<"tbl_doctors", 'String'>
-    readonly specialization: FieldRef<"tbl_doctors", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * tbl_doctors findUnique
-   */
-  export type tbl_doctorsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_doctors
-     */
-    select?: tbl_doctorsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_doctors
-     */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_doctorsInclude<ExtArgs> | null
-    /**
-     * Filter, which tbl_doctors to fetch.
-     */
-    where: tbl_doctorsWhereUniqueInput
-  }
-
-  /**
-   * tbl_doctors findUniqueOrThrow
-   */
-  export type tbl_doctorsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_doctors
-     */
-    select?: tbl_doctorsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_doctors
-     */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_doctorsInclude<ExtArgs> | null
-    /**
-     * Filter, which tbl_doctors to fetch.
-     */
-    where: tbl_doctorsWhereUniqueInput
-  }
-
-  /**
-   * tbl_doctors findFirst
-   */
-  export type tbl_doctorsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_doctors
-     */
-    select?: tbl_doctorsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_doctors
-     */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_doctorsInclude<ExtArgs> | null
-    /**
-     * Filter, which tbl_doctors to fetch.
-     */
-    where?: tbl_doctorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tbl_doctors to fetch.
-     */
-    orderBy?: tbl_doctorsOrderByWithRelationInput | tbl_doctorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for tbl_doctors.
-     */
-    cursor?: tbl_doctorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tbl_doctors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tbl_doctors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of tbl_doctors.
-     */
-    distinct?: Tbl_doctorsScalarFieldEnum | Tbl_doctorsScalarFieldEnum[]
-  }
-
-  /**
-   * tbl_doctors findFirstOrThrow
-   */
-  export type tbl_doctorsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_doctors
-     */
-    select?: tbl_doctorsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_doctors
-     */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_doctorsInclude<ExtArgs> | null
-    /**
-     * Filter, which tbl_doctors to fetch.
-     */
-    where?: tbl_doctorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tbl_doctors to fetch.
-     */
-    orderBy?: tbl_doctorsOrderByWithRelationInput | tbl_doctorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for tbl_doctors.
-     */
-    cursor?: tbl_doctorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tbl_doctors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tbl_doctors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of tbl_doctors.
-     */
-    distinct?: Tbl_doctorsScalarFieldEnum | Tbl_doctorsScalarFieldEnum[]
-  }
-
-  /**
-   * tbl_doctors findMany
-   */
-  export type tbl_doctorsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_doctors
-     */
-    select?: tbl_doctorsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_doctors
-     */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_doctorsInclude<ExtArgs> | null
-    /**
-     * Filter, which tbl_doctors to fetch.
-     */
-    where?: tbl_doctorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tbl_doctors to fetch.
-     */
-    orderBy?: tbl_doctorsOrderByWithRelationInput | tbl_doctorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing tbl_doctors.
-     */
-    cursor?: tbl_doctorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tbl_doctors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tbl_doctors.
-     */
-    skip?: number
-    distinct?: Tbl_doctorsScalarFieldEnum | Tbl_doctorsScalarFieldEnum[]
-  }
-
-  /**
-   * tbl_doctors create
-   */
-  export type tbl_doctorsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_doctors
-     */
-    select?: tbl_doctorsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_doctors
-     */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_doctorsInclude<ExtArgs> | null
-    /**
-     * The data needed to create a tbl_doctors.
-     */
-    data: XOR<tbl_doctorsCreateInput, tbl_doctorsUncheckedCreateInput>
-  }
-
-  /**
-   * tbl_doctors createMany
-   */
-  export type tbl_doctorsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many tbl_doctors.
-     */
-    data: tbl_doctorsCreateManyInput | tbl_doctorsCreateManyInput[]
-  }
-
-  /**
-   * tbl_doctors update
-   */
-  export type tbl_doctorsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_doctors
-     */
-    select?: tbl_doctorsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_doctors
-     */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_doctorsInclude<ExtArgs> | null
-    /**
-     * The data needed to update a tbl_doctors.
-     */
-    data: XOR<tbl_doctorsUpdateInput, tbl_doctorsUncheckedUpdateInput>
-    /**
-     * Choose, which tbl_doctors to update.
-     */
-    where: tbl_doctorsWhereUniqueInput
-  }
-
-  /**
-   * tbl_doctors updateMany
-   */
-  export type tbl_doctorsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update tbl_doctors.
-     */
-    data: XOR<tbl_doctorsUpdateManyMutationInput, tbl_doctorsUncheckedUpdateManyInput>
-    /**
-     * Filter which tbl_doctors to update
-     */
-    where?: tbl_doctorsWhereInput
-    /**
-     * Limit how many tbl_doctors to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * tbl_doctors upsert
-   */
-  export type tbl_doctorsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_doctors
-     */
-    select?: tbl_doctorsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_doctors
-     */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_doctorsInclude<ExtArgs> | null
-    /**
-     * The filter to search for the tbl_doctors to update in case it exists.
-     */
-    where: tbl_doctorsWhereUniqueInput
-    /**
-     * In case the tbl_doctors found by the `where` argument doesn't exist, create a new tbl_doctors with this data.
-     */
-    create: XOR<tbl_doctorsCreateInput, tbl_doctorsUncheckedCreateInput>
-    /**
-     * In case the tbl_doctors was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<tbl_doctorsUpdateInput, tbl_doctorsUncheckedUpdateInput>
-  }
-
-  /**
-   * tbl_doctors delete
-   */
-  export type tbl_doctorsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_doctors
-     */
-    select?: tbl_doctorsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_doctors
-     */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_doctorsInclude<ExtArgs> | null
-    /**
-     * Filter which tbl_doctors to delete.
-     */
-    where: tbl_doctorsWhereUniqueInput
-  }
-
-  /**
-   * tbl_doctors deleteMany
-   */
-  export type tbl_doctorsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which tbl_doctors to delete
-     */
-    where?: tbl_doctorsWhereInput
-    /**
-     * Limit how many tbl_doctors to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * tbl_doctors findRaw
-   */
-  export type tbl_doctorsFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * tbl_doctors aggregateRaw
-   */
-  export type tbl_doctorsAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * tbl_doctors.appointments
-   */
-  export type tbl_doctors$appointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tbl_appointments
-     */
-    select?: tbl_appointmentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tbl_appointments
-     */
-    omit?: tbl_appointmentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tbl_appointmentsInclude<ExtArgs> | null
-    where?: tbl_appointmentsWhereInput
-    orderBy?: tbl_appointmentsOrderByWithRelationInput | tbl_appointmentsOrderByWithRelationInput[]
-    cursor?: tbl_appointmentsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Tbl_appointmentsScalarFieldEnum | Tbl_appointmentsScalarFieldEnum[]
-  }
-
-  /**
-   * tbl_doctors.solved
-   */
-  export type tbl_doctors$solvedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type tbl_user$solvedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the tbl_solved_appointments
      */
@@ -5471,21 +4451,21 @@ export namespace Prisma {
   }
 
   /**
-   * tbl_doctors without action
+   * tbl_user without action
    */
-  export type tbl_doctorsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type tbl_userDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the tbl_doctors
+     * Select specific fields to fetch from the tbl_user
      */
-    select?: tbl_doctorsSelect<ExtArgs> | null
+    select?: tbl_userSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the tbl_doctors
+     * Omit specific fields from the tbl_user
      */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
+    omit?: tbl_userOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: tbl_doctorsInclude<ExtArgs> | null
+    include?: tbl_userInclude<ExtArgs> | null
   }
 
 
@@ -5687,7 +4667,7 @@ export namespace Prisma {
   export type $tbl_appointmentsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "tbl_appointments"
     objects: {
-      doctor: Prisma.$tbl_doctorsPayload<ExtArgs> | null
+      doctor: Prisma.$tbl_usersPayload<ExtArgs> | null
       solved_appointments: Prisma.$tbl_solved_appointmentsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -6060,7 +5040,7 @@ export namespace Prisma {
    */
   export interface Prisma__tbl_appointmentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    doctor<T extends tbl_appointments$doctorArgs<ExtArgs> = {}>(args?: Subset<T, tbl_appointments$doctorArgs<ExtArgs>>): Prisma__tbl_doctorsClient<$Result.GetResult<Prisma.$tbl_doctorsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    doctor<T extends tbl_appointments$doctorArgs<ExtArgs> = {}>(args?: Subset<T, tbl_appointments$doctorArgs<ExtArgs>>): Prisma__tbl_usersClient<$Result.GetResult<Prisma.$tbl_usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     solved_appointments<T extends tbl_appointments$solved_appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, tbl_appointments$solved_appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tbl_solved_appointmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6471,18 +5451,18 @@ export namespace Prisma {
    */
   export type tbl_appointments$doctorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the tbl_doctors
+     * Select specific fields to fetch from the tbl_users
      */
-    select?: tbl_doctorsSelect<ExtArgs> | null
+    select?: tbl_usersSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the tbl_doctors
+     * Omit specific fields from the tbl_users
      */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
+    omit?: tbl_usersOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: tbl_doctorsInclude<ExtArgs> | null
-    where?: tbl_doctorsWhereInput
+    include?: tbl_usersInclude<ExtArgs> | null
+    where?: tbl_usersWhereInput
   }
 
   /**
@@ -6734,7 +5714,7 @@ export namespace Prisma {
     name: "tbl_solved_appointments"
     objects: {
       appointment: Prisma.$tbl_appointmentsPayload<ExtArgs> | null
-      doctor: Prisma.$tbl_doctorsPayload<ExtArgs> | null
+      doctor: Prisma.$tbl_userPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7108,7 +6088,7 @@ export namespace Prisma {
   export interface Prisma__tbl_solved_appointmentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     appointment<T extends tbl_solved_appointments$appointmentArgs<ExtArgs> = {}>(args?: Subset<T, tbl_solved_appointments$appointmentArgs<ExtArgs>>): Prisma__tbl_appointmentsClient<$Result.GetResult<Prisma.$tbl_appointmentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    doctor<T extends tbl_solved_appointments$doctorArgs<ExtArgs> = {}>(args?: Subset<T, tbl_solved_appointments$doctorArgs<ExtArgs>>): Prisma__tbl_doctorsClient<$Result.GetResult<Prisma.$tbl_doctorsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    doctor<T extends tbl_solved_appointments$doctorArgs<ExtArgs> = {}>(args?: Subset<T, tbl_solved_appointments$doctorArgs<ExtArgs>>): Prisma__tbl_userClient<$Result.GetResult<Prisma.$tbl_userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7538,18 +6518,18 @@ export namespace Prisma {
    */
   export type tbl_solved_appointments$doctorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the tbl_doctors
+     * Select specific fields to fetch from the tbl_user
      */
-    select?: tbl_doctorsSelect<ExtArgs> | null
+    select?: tbl_userSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the tbl_doctors
+     * Omit specific fields from the tbl_user
      */
-    omit?: tbl_doctorsOmit<ExtArgs> | null
+    omit?: tbl_userOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: tbl_doctorsInclude<ExtArgs> | null
-    where?: tbl_doctorsWhereInput
+    include?: tbl_userInclude<ExtArgs> | null
+    where?: tbl_userWhereInput
   }
 
   /**
@@ -8610,15 +7590,6 @@ export namespace Prisma {
   export type Tbl_userScalarFieldEnum = (typeof Tbl_userScalarFieldEnum)[keyof typeof Tbl_userScalarFieldEnum]
 
 
-  export const Tbl_doctorsScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    specialization: 'specialization'
-  };
-
-  export type Tbl_doctorsScalarFieldEnum = (typeof Tbl_doctorsScalarFieldEnum)[keyof typeof Tbl_doctorsScalarFieldEnum]
-
-
   export const Tbl_appointmentsScalarFieldEnum: {
     id: 'id',
     doctor_id: 'doctor_id',
@@ -8791,6 +7762,7 @@ export namespace Prisma {
     password?: StringFilter<"tbl_users"> | string
     role_id?: StringFilter<"tbl_users"> | string
     role?: XOR<Tbl_rolesScalarRelationFilter, tbl_rolesWhereInput>
+    tbl_appointments?: Tbl_appointmentsListRelationFilter
   }
 
   export type tbl_usersOrderByWithRelationInput = {
@@ -8800,6 +7772,7 @@ export namespace Prisma {
     password?: SortOrder
     role_id?: SortOrder
     role?: tbl_rolesOrderByWithRelationInput
+    tbl_appointments?: tbl_appointmentsOrderByRelationAggregateInput
   }
 
   export type tbl_usersWhereUniqueInput = Prisma.AtLeast<{
@@ -8812,6 +7785,7 @@ export namespace Prisma {
     password?: StringFilter<"tbl_users"> | string
     role_id?: StringFilter<"tbl_users"> | string
     role?: XOR<Tbl_rolesScalarRelationFilter, tbl_rolesWhereInput>
+    tbl_appointments?: Tbl_appointmentsListRelationFilter
   }, "id" | "email">
 
   export type tbl_usersOrderByWithAggregationInput = {
@@ -8848,6 +7822,7 @@ export namespace Prisma {
     u_password?: StringFilter<"tbl_user"> | string
     u_role_id?: StringFilter<"tbl_user"> | string
     role?: XOR<Tbl_rolesNullableScalarRelationFilter, tbl_rolesWhereInput> | null
+    solved?: Tbl_solved_appointmentsListRelationFilter
   }
 
   export type tbl_userOrderByWithRelationInput = {
@@ -8859,6 +7834,7 @@ export namespace Prisma {
     u_password?: SortOrder
     u_role_id?: SortOrder
     role?: tbl_rolesOrderByWithRelationInput
+    solved?: tbl_solved_appointmentsOrderByRelationAggregateInput
   }
 
   export type tbl_userWhereUniqueInput = Prisma.AtLeast<{
@@ -8873,6 +7849,7 @@ export namespace Prisma {
     u_password?: StringFilter<"tbl_user"> | string
     u_role_id?: StringFilter<"tbl_user"> | string
     role?: XOR<Tbl_rolesNullableScalarRelationFilter, tbl_rolesWhereInput> | null
+    solved?: Tbl_solved_appointmentsListRelationFilter
   }, "id" | "u_usersname" | "u_email">
 
   export type tbl_userOrderByWithAggregationInput = {
@@ -8901,54 +7878,6 @@ export namespace Prisma {
     u_role_id?: StringWithAggregatesFilter<"tbl_user"> | string
   }
 
-  export type tbl_doctorsWhereInput = {
-    AND?: tbl_doctorsWhereInput | tbl_doctorsWhereInput[]
-    OR?: tbl_doctorsWhereInput[]
-    NOT?: tbl_doctorsWhereInput | tbl_doctorsWhereInput[]
-    id?: StringFilter<"tbl_doctors"> | string
-    name?: StringFilter<"tbl_doctors"> | string
-    specialization?: StringFilter<"tbl_doctors"> | string
-    appointments?: Tbl_appointmentsListRelationFilter
-    solved?: Tbl_solved_appointmentsListRelationFilter
-  }
-
-  export type tbl_doctorsOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    specialization?: SortOrder
-    appointments?: tbl_appointmentsOrderByRelationAggregateInput
-    solved?: tbl_solved_appointmentsOrderByRelationAggregateInput
-  }
-
-  export type tbl_doctorsWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: tbl_doctorsWhereInput | tbl_doctorsWhereInput[]
-    OR?: tbl_doctorsWhereInput[]
-    NOT?: tbl_doctorsWhereInput | tbl_doctorsWhereInput[]
-    name?: StringFilter<"tbl_doctors"> | string
-    specialization?: StringFilter<"tbl_doctors"> | string
-    appointments?: Tbl_appointmentsListRelationFilter
-    solved?: Tbl_solved_appointmentsListRelationFilter
-  }, "id">
-
-  export type tbl_doctorsOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    specialization?: SortOrder
-    _count?: tbl_doctorsCountOrderByAggregateInput
-    _max?: tbl_doctorsMaxOrderByAggregateInput
-    _min?: tbl_doctorsMinOrderByAggregateInput
-  }
-
-  export type tbl_doctorsScalarWhereWithAggregatesInput = {
-    AND?: tbl_doctorsScalarWhereWithAggregatesInput | tbl_doctorsScalarWhereWithAggregatesInput[]
-    OR?: tbl_doctorsScalarWhereWithAggregatesInput[]
-    NOT?: tbl_doctorsScalarWhereWithAggregatesInput | tbl_doctorsScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"tbl_doctors"> | string
-    name?: StringWithAggregatesFilter<"tbl_doctors"> | string
-    specialization?: StringWithAggregatesFilter<"tbl_doctors"> | string
-  }
-
   export type tbl_appointmentsWhereInput = {
     AND?: tbl_appointmentsWhereInput | tbl_appointmentsWhereInput[]
     OR?: tbl_appointmentsWhereInput[]
@@ -8959,7 +7888,7 @@ export namespace Prisma {
     appointment_date?: DateTimeFilter<"tbl_appointments"> | Date | string
     status?: StringFilter<"tbl_appointments"> | string
     created_at?: DateTimeFilter<"tbl_appointments"> | Date | string
-    doctor?: XOR<Tbl_doctorsNullableScalarRelationFilter, tbl_doctorsWhereInput> | null
+    doctor?: XOR<Tbl_usersNullableScalarRelationFilter, tbl_usersWhereInput> | null
     solved_appointments?: Tbl_solved_appointmentsListRelationFilter
   }
 
@@ -8970,7 +7899,7 @@ export namespace Prisma {
     appointment_date?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
-    doctor?: tbl_doctorsOrderByWithRelationInput
+    doctor?: tbl_usersOrderByWithRelationInput
     solved_appointments?: tbl_solved_appointmentsOrderByRelationAggregateInput
   }
 
@@ -8984,7 +7913,7 @@ export namespace Prisma {
     appointment_date?: DateTimeFilter<"tbl_appointments"> | Date | string
     status?: StringFilter<"tbl_appointments"> | string
     created_at?: DateTimeFilter<"tbl_appointments"> | Date | string
-    doctor?: XOR<Tbl_doctorsNullableScalarRelationFilter, tbl_doctorsWhereInput> | null
+    doctor?: XOR<Tbl_usersNullableScalarRelationFilter, tbl_usersWhereInput> | null
     solved_appointments?: Tbl_solved_appointmentsListRelationFilter
   }, "id">
 
@@ -9024,7 +7953,7 @@ export namespace Prisma {
     status?: StringFilter<"tbl_solved_appointments"> | string
     solved_at?: DateTimeFilter<"tbl_solved_appointments"> | Date | string
     appointment?: XOR<Tbl_appointmentsNullableScalarRelationFilter, tbl_appointmentsWhereInput> | null
-    doctor?: XOR<Tbl_doctorsNullableScalarRelationFilter, tbl_doctorsWhereInput> | null
+    doctor?: XOR<Tbl_userNullableScalarRelationFilter, tbl_userWhereInput> | null
   }
 
   export type tbl_solved_appointmentsOrderByWithRelationInput = {
@@ -9036,7 +7965,7 @@ export namespace Prisma {
     status?: SortOrder
     solved_at?: SortOrder
     appointment?: tbl_appointmentsOrderByWithRelationInput
-    doctor?: tbl_doctorsOrderByWithRelationInput
+    doctor?: tbl_userOrderByWithRelationInput
   }
 
   export type tbl_solved_appointmentsWhereUniqueInput = Prisma.AtLeast<{
@@ -9051,7 +7980,7 @@ export namespace Prisma {
     status?: StringFilter<"tbl_solved_appointments"> | string
     solved_at?: DateTimeFilter<"tbl_solved_appointments"> | Date | string
     appointment?: XOR<Tbl_appointmentsNullableScalarRelationFilter, tbl_appointmentsWhereInput> | null
-    doctor?: XOR<Tbl_doctorsNullableScalarRelationFilter, tbl_doctorsWhereInput> | null
+    doctor?: XOR<Tbl_userNullableScalarRelationFilter, tbl_userWhereInput> | null
   }, "id">
 
   export type tbl_solved_appointmentsOrderByWithAggregationInput = {
@@ -9194,6 +8123,7 @@ export namespace Prisma {
     email: string
     password: string
     role: tbl_rolesCreateNestedOneWithoutTbl_usersInput
+    tbl_appointments?: tbl_appointmentsCreateNestedManyWithoutDoctorInput
   }
 
   export type tbl_usersUncheckedCreateInput = {
@@ -9202,6 +8132,7 @@ export namespace Prisma {
     email: string
     password: string
     role_id: string
+    tbl_appointments?: tbl_appointmentsUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type tbl_usersUpdateInput = {
@@ -9209,6 +8140,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: tbl_rolesUpdateOneRequiredWithoutTbl_usersNestedInput
+    tbl_appointments?: tbl_appointmentsUpdateManyWithoutDoctorNestedInput
   }
 
   export type tbl_usersUncheckedUpdateInput = {
@@ -9216,6 +8148,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role_id?: StringFieldUpdateOperationsInput | string
+    tbl_appointments?: tbl_appointmentsUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type tbl_usersCreateManyInput = {
@@ -9247,6 +8180,7 @@ export namespace Prisma {
     u_email: string
     u_password: string
     role?: tbl_rolesCreateNestedOneWithoutUsersInput
+    solved?: tbl_solved_appointmentsCreateNestedManyWithoutDoctorInput
   }
 
   export type tbl_userUncheckedCreateInput = {
@@ -9257,6 +8191,7 @@ export namespace Prisma {
     u_email: string
     u_password: string
     u_role_id: string
+    solved?: tbl_solved_appointmentsUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type tbl_userUpdateInput = {
@@ -9266,6 +8201,7 @@ export namespace Prisma {
     u_email?: StringFieldUpdateOperationsInput | string
     u_password?: StringFieldUpdateOperationsInput | string
     role?: tbl_rolesUpdateOneWithoutUsersNestedInput
+    solved?: tbl_solved_appointmentsUpdateManyWithoutDoctorNestedInput
   }
 
   export type tbl_userUncheckedUpdateInput = {
@@ -9275,6 +8211,7 @@ export namespace Prisma {
     u_email?: StringFieldUpdateOperationsInput | string
     u_password?: StringFieldUpdateOperationsInput | string
     u_role_id?: StringFieldUpdateOperationsInput | string
+    solved?: tbl_solved_appointmentsUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type tbl_userCreateManyInput = {
@@ -9304,59 +8241,13 @@ export namespace Prisma {
     u_role_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type tbl_doctorsCreateInput = {
-    id?: string
-    name: string
-    specialization: string
-    appointments?: tbl_appointmentsCreateNestedManyWithoutDoctorInput
-    solved?: tbl_solved_appointmentsCreateNestedManyWithoutDoctorInput
-  }
-
-  export type tbl_doctorsUncheckedCreateInput = {
-    id?: string
-    name: string
-    specialization: string
-    appointments?: tbl_appointmentsUncheckedCreateNestedManyWithoutDoctorInput
-    solved?: tbl_solved_appointmentsUncheckedCreateNestedManyWithoutDoctorInput
-  }
-
-  export type tbl_doctorsUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    specialization?: StringFieldUpdateOperationsInput | string
-    appointments?: tbl_appointmentsUpdateManyWithoutDoctorNestedInput
-    solved?: tbl_solved_appointmentsUpdateManyWithoutDoctorNestedInput
-  }
-
-  export type tbl_doctorsUncheckedUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    specialization?: StringFieldUpdateOperationsInput | string
-    appointments?: tbl_appointmentsUncheckedUpdateManyWithoutDoctorNestedInput
-    solved?: tbl_solved_appointmentsUncheckedUpdateManyWithoutDoctorNestedInput
-  }
-
-  export type tbl_doctorsCreateManyInput = {
-    id?: string
-    name: string
-    specialization: string
-  }
-
-  export type tbl_doctorsUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    specialization?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type tbl_doctorsUncheckedUpdateManyInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    specialization?: StringFieldUpdateOperationsInput | string
-  }
-
   export type tbl_appointmentsCreateInput = {
     id?: string
     patient_name: string
     appointment_date: Date | string
     status: string
     created_at?: Date | string
-    doctor?: tbl_doctorsCreateNestedOneWithoutAppointmentsInput
+    doctor?: tbl_usersCreateNestedOneWithoutTbl_appointmentsInput
     solved_appointments?: tbl_solved_appointmentsCreateNestedManyWithoutAppointmentInput
   }
 
@@ -9375,7 +8266,7 @@ export namespace Prisma {
     appointment_date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    doctor?: tbl_doctorsUpdateOneWithoutAppointmentsNestedInput
+    doctor?: tbl_usersUpdateOneWithoutTbl_appointmentsNestedInput
     solved_appointments?: tbl_solved_appointmentsUpdateManyWithoutAppointmentNestedInput
   }
 
@@ -9419,7 +8310,7 @@ export namespace Prisma {
     status: string
     solved_at?: Date | string
     appointment?: tbl_appointmentsCreateNestedOneWithoutSolved_appointmentsInput
-    doctor?: tbl_doctorsCreateNestedOneWithoutSolvedInput
+    doctor?: tbl_userCreateNestedOneWithoutSolvedInput
   }
 
   export type tbl_solved_appointmentsUncheckedCreateInput = {
@@ -9438,7 +8329,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     solved_at?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: tbl_appointmentsUpdateOneWithoutSolved_appointmentsNestedInput
-    doctor?: tbl_doctorsUpdateOneWithoutSolvedNestedInput
+    doctor?: tbl_userUpdateOneWithoutSolvedNestedInput
   }
 
   export type tbl_solved_appointmentsUncheckedUpdateInput = {
@@ -9622,6 +8513,16 @@ export namespace Prisma {
     isNot?: tbl_rolesWhereInput
   }
 
+  export type Tbl_appointmentsListRelationFilter = {
+    every?: tbl_appointmentsWhereInput
+    some?: tbl_appointmentsWhereInput
+    none?: tbl_appointmentsWhereInput
+  }
+
+  export type tbl_appointmentsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type tbl_usersCountOrderByAggregateInput = {
     id?: SortOrder
     names?: SortOrder
@@ -9649,6 +8550,16 @@ export namespace Prisma {
   export type Tbl_rolesNullableScalarRelationFilter = {
     is?: tbl_rolesWhereInput | null
     isNot?: tbl_rolesWhereInput | null
+  }
+
+  export type Tbl_solved_appointmentsListRelationFilter = {
+    every?: tbl_solved_appointmentsWhereInput
+    some?: tbl_solved_appointmentsWhereInput
+    none?: tbl_solved_appointmentsWhereInput
+  }
+
+  export type tbl_solved_appointmentsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type tbl_userCountOrderByAggregateInput = {
@@ -9681,44 +8592,6 @@ export namespace Prisma {
     u_role_id?: SortOrder
   }
 
-  export type Tbl_appointmentsListRelationFilter = {
-    every?: tbl_appointmentsWhereInput
-    some?: tbl_appointmentsWhereInput
-    none?: tbl_appointmentsWhereInput
-  }
-
-  export type Tbl_solved_appointmentsListRelationFilter = {
-    every?: tbl_solved_appointmentsWhereInput
-    some?: tbl_solved_appointmentsWhereInput
-    none?: tbl_solved_appointmentsWhereInput
-  }
-
-  export type tbl_appointmentsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type tbl_solved_appointmentsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type tbl_doctorsCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    specialization?: SortOrder
-  }
-
-  export type tbl_doctorsMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    specialization?: SortOrder
-  }
-
-  export type tbl_doctorsMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    specialization?: SortOrder
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9730,9 +8603,9 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type Tbl_doctorsNullableScalarRelationFilter = {
-    is?: tbl_doctorsWhereInput | null
-    isNot?: tbl_doctorsWhereInput | null
+  export type Tbl_usersNullableScalarRelationFilter = {
+    is?: tbl_usersWhereInput | null
+    isNot?: tbl_usersWhereInput | null
   }
 
   export type tbl_appointmentsCountOrderByAggregateInput = {
@@ -9779,6 +8652,11 @@ export namespace Prisma {
   export type Tbl_appointmentsNullableScalarRelationFilter = {
     is?: tbl_appointmentsWhereInput | null
     isNot?: tbl_appointmentsWhereInput | null
+  }
+
+  export type Tbl_userNullableScalarRelationFilter = {
+    is?: tbl_userWhereInput | null
+    isNot?: tbl_userWhereInput | null
   }
 
   export type tbl_solved_appointmentsCountOrderByAggregateInput = {
@@ -10012,42 +8890,11 @@ export namespace Prisma {
     connect?: tbl_rolesWhereUniqueInput
   }
 
-  export type tbl_rolesUpdateOneRequiredWithoutTbl_usersNestedInput = {
-    create?: XOR<tbl_rolesCreateWithoutTbl_usersInput, tbl_rolesUncheckedCreateWithoutTbl_usersInput>
-    connectOrCreate?: tbl_rolesCreateOrConnectWithoutTbl_usersInput
-    upsert?: tbl_rolesUpsertWithoutTbl_usersInput
-    connect?: tbl_rolesWhereUniqueInput
-    update?: XOR<XOR<tbl_rolesUpdateToOneWithWhereWithoutTbl_usersInput, tbl_rolesUpdateWithoutTbl_usersInput>, tbl_rolesUncheckedUpdateWithoutTbl_usersInput>
-  }
-
-  export type tbl_rolesCreateNestedOneWithoutUsersInput = {
-    create?: XOR<tbl_rolesCreateWithoutUsersInput, tbl_rolesUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: tbl_rolesCreateOrConnectWithoutUsersInput
-    connect?: tbl_rolesWhereUniqueInput
-  }
-
-  export type tbl_rolesUpdateOneWithoutUsersNestedInput = {
-    create?: XOR<tbl_rolesCreateWithoutUsersInput, tbl_rolesUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: tbl_rolesCreateOrConnectWithoutUsersInput
-    upsert?: tbl_rolesUpsertWithoutUsersInput
-    disconnect?: boolean
-    delete?: tbl_rolesWhereInput | boolean
-    connect?: tbl_rolesWhereUniqueInput
-    update?: XOR<XOR<tbl_rolesUpdateToOneWithWhereWithoutUsersInput, tbl_rolesUpdateWithoutUsersInput>, tbl_rolesUncheckedUpdateWithoutUsersInput>
-  }
-
   export type tbl_appointmentsCreateNestedManyWithoutDoctorInput = {
     create?: XOR<tbl_appointmentsCreateWithoutDoctorInput, tbl_appointmentsUncheckedCreateWithoutDoctorInput> | tbl_appointmentsCreateWithoutDoctorInput[] | tbl_appointmentsUncheckedCreateWithoutDoctorInput[]
     connectOrCreate?: tbl_appointmentsCreateOrConnectWithoutDoctorInput | tbl_appointmentsCreateOrConnectWithoutDoctorInput[]
     createMany?: tbl_appointmentsCreateManyDoctorInputEnvelope
     connect?: tbl_appointmentsWhereUniqueInput | tbl_appointmentsWhereUniqueInput[]
-  }
-
-  export type tbl_solved_appointmentsCreateNestedManyWithoutDoctorInput = {
-    create?: XOR<tbl_solved_appointmentsCreateWithoutDoctorInput, tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput> | tbl_solved_appointmentsCreateWithoutDoctorInput[] | tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput[]
-    connectOrCreate?: tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput | tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput[]
-    createMany?: tbl_solved_appointmentsCreateManyDoctorInputEnvelope
-    connect?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
   }
 
   export type tbl_appointmentsUncheckedCreateNestedManyWithoutDoctorInput = {
@@ -10057,11 +8904,12 @@ export namespace Prisma {
     connect?: tbl_appointmentsWhereUniqueInput | tbl_appointmentsWhereUniqueInput[]
   }
 
-  export type tbl_solved_appointmentsUncheckedCreateNestedManyWithoutDoctorInput = {
-    create?: XOR<tbl_solved_appointmentsCreateWithoutDoctorInput, tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput> | tbl_solved_appointmentsCreateWithoutDoctorInput[] | tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput[]
-    connectOrCreate?: tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput | tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput[]
-    createMany?: tbl_solved_appointmentsCreateManyDoctorInputEnvelope
-    connect?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
+  export type tbl_rolesUpdateOneRequiredWithoutTbl_usersNestedInput = {
+    create?: XOR<tbl_rolesCreateWithoutTbl_usersInput, tbl_rolesUncheckedCreateWithoutTbl_usersInput>
+    connectOrCreate?: tbl_rolesCreateOrConnectWithoutTbl_usersInput
+    upsert?: tbl_rolesUpsertWithoutTbl_usersInput
+    connect?: tbl_rolesWhereUniqueInput
+    update?: XOR<XOR<tbl_rolesUpdateToOneWithWhereWithoutTbl_usersInput, tbl_rolesUpdateWithoutTbl_usersInput>, tbl_rolesUncheckedUpdateWithoutTbl_usersInput>
   }
 
   export type tbl_appointmentsUpdateManyWithoutDoctorNestedInput = {
@@ -10078,20 +8926,6 @@ export namespace Prisma {
     deleteMany?: tbl_appointmentsScalarWhereInput | tbl_appointmentsScalarWhereInput[]
   }
 
-  export type tbl_solved_appointmentsUpdateManyWithoutDoctorNestedInput = {
-    create?: XOR<tbl_solved_appointmentsCreateWithoutDoctorInput, tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput> | tbl_solved_appointmentsCreateWithoutDoctorInput[] | tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput[]
-    connectOrCreate?: tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput | tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput[]
-    upsert?: tbl_solved_appointmentsUpsertWithWhereUniqueWithoutDoctorInput | tbl_solved_appointmentsUpsertWithWhereUniqueWithoutDoctorInput[]
-    createMany?: tbl_solved_appointmentsCreateManyDoctorInputEnvelope
-    set?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
-    disconnect?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
-    delete?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
-    connect?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
-    update?: tbl_solved_appointmentsUpdateWithWhereUniqueWithoutDoctorInput | tbl_solved_appointmentsUpdateWithWhereUniqueWithoutDoctorInput[]
-    updateMany?: tbl_solved_appointmentsUpdateManyWithWhereWithoutDoctorInput | tbl_solved_appointmentsUpdateManyWithWhereWithoutDoctorInput[]
-    deleteMany?: tbl_solved_appointmentsScalarWhereInput | tbl_solved_appointmentsScalarWhereInput[]
-  }
-
   export type tbl_appointmentsUncheckedUpdateManyWithoutDoctorNestedInput = {
     create?: XOR<tbl_appointmentsCreateWithoutDoctorInput, tbl_appointmentsUncheckedCreateWithoutDoctorInput> | tbl_appointmentsCreateWithoutDoctorInput[] | tbl_appointmentsUncheckedCreateWithoutDoctorInput[]
     connectOrCreate?: tbl_appointmentsCreateOrConnectWithoutDoctorInput | tbl_appointmentsCreateOrConnectWithoutDoctorInput[]
@@ -10104,6 +8938,50 @@ export namespace Prisma {
     update?: tbl_appointmentsUpdateWithWhereUniqueWithoutDoctorInput | tbl_appointmentsUpdateWithWhereUniqueWithoutDoctorInput[]
     updateMany?: tbl_appointmentsUpdateManyWithWhereWithoutDoctorInput | tbl_appointmentsUpdateManyWithWhereWithoutDoctorInput[]
     deleteMany?: tbl_appointmentsScalarWhereInput | tbl_appointmentsScalarWhereInput[]
+  }
+
+  export type tbl_rolesCreateNestedOneWithoutUsersInput = {
+    create?: XOR<tbl_rolesCreateWithoutUsersInput, tbl_rolesUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: tbl_rolesCreateOrConnectWithoutUsersInput
+    connect?: tbl_rolesWhereUniqueInput
+  }
+
+  export type tbl_solved_appointmentsCreateNestedManyWithoutDoctorInput = {
+    create?: XOR<tbl_solved_appointmentsCreateWithoutDoctorInput, tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput> | tbl_solved_appointmentsCreateWithoutDoctorInput[] | tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput | tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput[]
+    createMany?: tbl_solved_appointmentsCreateManyDoctorInputEnvelope
+    connect?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
+  }
+
+  export type tbl_solved_appointmentsUncheckedCreateNestedManyWithoutDoctorInput = {
+    create?: XOR<tbl_solved_appointmentsCreateWithoutDoctorInput, tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput> | tbl_solved_appointmentsCreateWithoutDoctorInput[] | tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput | tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput[]
+    createMany?: tbl_solved_appointmentsCreateManyDoctorInputEnvelope
+    connect?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
+  }
+
+  export type tbl_rolesUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<tbl_rolesCreateWithoutUsersInput, tbl_rolesUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: tbl_rolesCreateOrConnectWithoutUsersInput
+    upsert?: tbl_rolesUpsertWithoutUsersInput
+    disconnect?: boolean
+    delete?: tbl_rolesWhereInput | boolean
+    connect?: tbl_rolesWhereUniqueInput
+    update?: XOR<XOR<tbl_rolesUpdateToOneWithWhereWithoutUsersInput, tbl_rolesUpdateWithoutUsersInput>, tbl_rolesUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type tbl_solved_appointmentsUpdateManyWithoutDoctorNestedInput = {
+    create?: XOR<tbl_solved_appointmentsCreateWithoutDoctorInput, tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput> | tbl_solved_appointmentsCreateWithoutDoctorInput[] | tbl_solved_appointmentsUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput | tbl_solved_appointmentsCreateOrConnectWithoutDoctorInput[]
+    upsert?: tbl_solved_appointmentsUpsertWithWhereUniqueWithoutDoctorInput | tbl_solved_appointmentsUpsertWithWhereUniqueWithoutDoctorInput[]
+    createMany?: tbl_solved_appointmentsCreateManyDoctorInputEnvelope
+    set?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
+    disconnect?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
+    delete?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
+    connect?: tbl_solved_appointmentsWhereUniqueInput | tbl_solved_appointmentsWhereUniqueInput[]
+    update?: tbl_solved_appointmentsUpdateWithWhereUniqueWithoutDoctorInput | tbl_solved_appointmentsUpdateWithWhereUniqueWithoutDoctorInput[]
+    updateMany?: tbl_solved_appointmentsUpdateManyWithWhereWithoutDoctorInput | tbl_solved_appointmentsUpdateManyWithWhereWithoutDoctorInput[]
+    deleteMany?: tbl_solved_appointmentsScalarWhereInput | tbl_solved_appointmentsScalarWhereInput[]
   }
 
   export type tbl_solved_appointmentsUncheckedUpdateManyWithoutDoctorNestedInput = {
@@ -10120,10 +8998,10 @@ export namespace Prisma {
     deleteMany?: tbl_solved_appointmentsScalarWhereInput | tbl_solved_appointmentsScalarWhereInput[]
   }
 
-  export type tbl_doctorsCreateNestedOneWithoutAppointmentsInput = {
-    create?: XOR<tbl_doctorsCreateWithoutAppointmentsInput, tbl_doctorsUncheckedCreateWithoutAppointmentsInput>
-    connectOrCreate?: tbl_doctorsCreateOrConnectWithoutAppointmentsInput
-    connect?: tbl_doctorsWhereUniqueInput
+  export type tbl_usersCreateNestedOneWithoutTbl_appointmentsInput = {
+    create?: XOR<tbl_usersCreateWithoutTbl_appointmentsInput, tbl_usersUncheckedCreateWithoutTbl_appointmentsInput>
+    connectOrCreate?: tbl_usersCreateOrConnectWithoutTbl_appointmentsInput
+    connect?: tbl_usersWhereUniqueInput
   }
 
   export type tbl_solved_appointmentsCreateNestedManyWithoutAppointmentInput = {
@@ -10144,14 +9022,14 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type tbl_doctorsUpdateOneWithoutAppointmentsNestedInput = {
-    create?: XOR<tbl_doctorsCreateWithoutAppointmentsInput, tbl_doctorsUncheckedCreateWithoutAppointmentsInput>
-    connectOrCreate?: tbl_doctorsCreateOrConnectWithoutAppointmentsInput
-    upsert?: tbl_doctorsUpsertWithoutAppointmentsInput
+  export type tbl_usersUpdateOneWithoutTbl_appointmentsNestedInput = {
+    create?: XOR<tbl_usersCreateWithoutTbl_appointmentsInput, tbl_usersUncheckedCreateWithoutTbl_appointmentsInput>
+    connectOrCreate?: tbl_usersCreateOrConnectWithoutTbl_appointmentsInput
+    upsert?: tbl_usersUpsertWithoutTbl_appointmentsInput
     disconnect?: boolean
-    delete?: tbl_doctorsWhereInput | boolean
-    connect?: tbl_doctorsWhereUniqueInput
-    update?: XOR<XOR<tbl_doctorsUpdateToOneWithWhereWithoutAppointmentsInput, tbl_doctorsUpdateWithoutAppointmentsInput>, tbl_doctorsUncheckedUpdateWithoutAppointmentsInput>
+    delete?: tbl_usersWhereInput | boolean
+    connect?: tbl_usersWhereUniqueInput
+    update?: XOR<XOR<tbl_usersUpdateToOneWithWhereWithoutTbl_appointmentsInput, tbl_usersUpdateWithoutTbl_appointmentsInput>, tbl_usersUncheckedUpdateWithoutTbl_appointmentsInput>
   }
 
   export type tbl_solved_appointmentsUpdateManyWithoutAppointmentNestedInput = {
@@ -10188,10 +9066,10 @@ export namespace Prisma {
     connect?: tbl_appointmentsWhereUniqueInput
   }
 
-  export type tbl_doctorsCreateNestedOneWithoutSolvedInput = {
-    create?: XOR<tbl_doctorsCreateWithoutSolvedInput, tbl_doctorsUncheckedCreateWithoutSolvedInput>
-    connectOrCreate?: tbl_doctorsCreateOrConnectWithoutSolvedInput
-    connect?: tbl_doctorsWhereUniqueInput
+  export type tbl_userCreateNestedOneWithoutSolvedInput = {
+    create?: XOR<tbl_userCreateWithoutSolvedInput, tbl_userUncheckedCreateWithoutSolvedInput>
+    connectOrCreate?: tbl_userCreateOrConnectWithoutSolvedInput
+    connect?: tbl_userWhereUniqueInput
   }
 
   export type tbl_appointmentsUpdateOneWithoutSolved_appointmentsNestedInput = {
@@ -10204,14 +9082,14 @@ export namespace Prisma {
     update?: XOR<XOR<tbl_appointmentsUpdateToOneWithWhereWithoutSolved_appointmentsInput, tbl_appointmentsUpdateWithoutSolved_appointmentsInput>, tbl_appointmentsUncheckedUpdateWithoutSolved_appointmentsInput>
   }
 
-  export type tbl_doctorsUpdateOneWithoutSolvedNestedInput = {
-    create?: XOR<tbl_doctorsCreateWithoutSolvedInput, tbl_doctorsUncheckedCreateWithoutSolvedInput>
-    connectOrCreate?: tbl_doctorsCreateOrConnectWithoutSolvedInput
-    upsert?: tbl_doctorsUpsertWithoutSolvedInput
+  export type tbl_userUpdateOneWithoutSolvedNestedInput = {
+    create?: XOR<tbl_userCreateWithoutSolvedInput, tbl_userUncheckedCreateWithoutSolvedInput>
+    connectOrCreate?: tbl_userCreateOrConnectWithoutSolvedInput
+    upsert?: tbl_userUpsertWithoutSolvedInput
     disconnect?: boolean
-    delete?: tbl_doctorsWhereInput | boolean
-    connect?: tbl_doctorsWhereUniqueInput
-    update?: XOR<XOR<tbl_doctorsUpdateToOneWithWhereWithoutSolvedInput, tbl_doctorsUpdateWithoutSolvedInput>, tbl_doctorsUncheckedUpdateWithoutSolvedInput>
+    delete?: tbl_userWhereInput | boolean
+    connect?: tbl_userWhereUniqueInput
+    update?: XOR<XOR<tbl_userUpdateToOneWithWhereWithoutSolvedInput, tbl_userUpdateWithoutSolvedInput>, tbl_userUncheckedUpdateWithoutSolvedInput>
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -10376,6 +9254,7 @@ export namespace Prisma {
     u_usersname: string
     u_email: string
     u_password: string
+    solved?: tbl_solved_appointmentsCreateNestedManyWithoutDoctorInput
   }
 
   export type tbl_userUncheckedCreateWithoutRoleInput = {
@@ -10385,6 +9264,7 @@ export namespace Prisma {
     u_usersname: string
     u_email: string
     u_password: string
+    solved?: tbl_solved_appointmentsUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type tbl_userCreateOrConnectWithoutRoleInput = {
@@ -10401,6 +9281,7 @@ export namespace Prisma {
     names: string
     email: string
     password: string
+    tbl_appointments?: tbl_appointmentsCreateNestedManyWithoutDoctorInput
   }
 
   export type tbl_usersUncheckedCreateWithoutRoleInput = {
@@ -10408,6 +9289,7 @@ export namespace Prisma {
     names: string
     email: string
     password: string
+    tbl_appointments?: tbl_appointmentsUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type tbl_usersCreateOrConnectWithoutRoleInput = {
@@ -10492,65 +9374,6 @@ export namespace Prisma {
     create: XOR<tbl_rolesCreateWithoutTbl_usersInput, tbl_rolesUncheckedCreateWithoutTbl_usersInput>
   }
 
-  export type tbl_rolesUpsertWithoutTbl_usersInput = {
-    update: XOR<tbl_rolesUpdateWithoutTbl_usersInput, tbl_rolesUncheckedUpdateWithoutTbl_usersInput>
-    create: XOR<tbl_rolesCreateWithoutTbl_usersInput, tbl_rolesUncheckedCreateWithoutTbl_usersInput>
-    where?: tbl_rolesWhereInput
-  }
-
-  export type tbl_rolesUpdateToOneWithWhereWithoutTbl_usersInput = {
-    where?: tbl_rolesWhereInput
-    data: XOR<tbl_rolesUpdateWithoutTbl_usersInput, tbl_rolesUncheckedUpdateWithoutTbl_usersInput>
-  }
-
-  export type tbl_rolesUpdateWithoutTbl_usersInput = {
-    role_name?: StringFieldUpdateOperationsInput | string
-    users?: tbl_userUpdateManyWithoutRoleNestedInput
-  }
-
-  export type tbl_rolesUncheckedUpdateWithoutTbl_usersInput = {
-    role_name?: StringFieldUpdateOperationsInput | string
-    users?: tbl_userUncheckedUpdateManyWithoutRoleNestedInput
-  }
-
-  export type tbl_rolesCreateWithoutUsersInput = {
-    id?: string
-    role_name: string
-    tbl_users?: tbl_usersCreateNestedManyWithoutRoleInput
-  }
-
-  export type tbl_rolesUncheckedCreateWithoutUsersInput = {
-    id?: string
-    role_name: string
-    tbl_users?: tbl_usersUncheckedCreateNestedManyWithoutRoleInput
-  }
-
-  export type tbl_rolesCreateOrConnectWithoutUsersInput = {
-    where: tbl_rolesWhereUniqueInput
-    create: XOR<tbl_rolesCreateWithoutUsersInput, tbl_rolesUncheckedCreateWithoutUsersInput>
-  }
-
-  export type tbl_rolesUpsertWithoutUsersInput = {
-    update: XOR<tbl_rolesUpdateWithoutUsersInput, tbl_rolesUncheckedUpdateWithoutUsersInput>
-    create: XOR<tbl_rolesCreateWithoutUsersInput, tbl_rolesUncheckedCreateWithoutUsersInput>
-    where?: tbl_rolesWhereInput
-  }
-
-  export type tbl_rolesUpdateToOneWithWhereWithoutUsersInput = {
-    where?: tbl_rolesWhereInput
-    data: XOR<tbl_rolesUpdateWithoutUsersInput, tbl_rolesUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type tbl_rolesUpdateWithoutUsersInput = {
-    role_name?: StringFieldUpdateOperationsInput | string
-    tbl_users?: tbl_usersUpdateManyWithoutRoleNestedInput
-  }
-
-  export type tbl_rolesUncheckedUpdateWithoutUsersInput = {
-    role_name?: StringFieldUpdateOperationsInput | string
-    tbl_users?: tbl_usersUncheckedUpdateManyWithoutRoleNestedInput
-  }
-
   export type tbl_appointmentsCreateWithoutDoctorInput = {
     id?: string
     patient_name: string
@@ -10576,6 +9399,72 @@ export namespace Prisma {
 
   export type tbl_appointmentsCreateManyDoctorInputEnvelope = {
     data: tbl_appointmentsCreateManyDoctorInput | tbl_appointmentsCreateManyDoctorInput[]
+  }
+
+  export type tbl_rolesUpsertWithoutTbl_usersInput = {
+    update: XOR<tbl_rolesUpdateWithoutTbl_usersInput, tbl_rolesUncheckedUpdateWithoutTbl_usersInput>
+    create: XOR<tbl_rolesCreateWithoutTbl_usersInput, tbl_rolesUncheckedCreateWithoutTbl_usersInput>
+    where?: tbl_rolesWhereInput
+  }
+
+  export type tbl_rolesUpdateToOneWithWhereWithoutTbl_usersInput = {
+    where?: tbl_rolesWhereInput
+    data: XOR<tbl_rolesUpdateWithoutTbl_usersInput, tbl_rolesUncheckedUpdateWithoutTbl_usersInput>
+  }
+
+  export type tbl_rolesUpdateWithoutTbl_usersInput = {
+    role_name?: StringFieldUpdateOperationsInput | string
+    users?: tbl_userUpdateManyWithoutRoleNestedInput
+  }
+
+  export type tbl_rolesUncheckedUpdateWithoutTbl_usersInput = {
+    role_name?: StringFieldUpdateOperationsInput | string
+    users?: tbl_userUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type tbl_appointmentsUpsertWithWhereUniqueWithoutDoctorInput = {
+    where: tbl_appointmentsWhereUniqueInput
+    update: XOR<tbl_appointmentsUpdateWithoutDoctorInput, tbl_appointmentsUncheckedUpdateWithoutDoctorInput>
+    create: XOR<tbl_appointmentsCreateWithoutDoctorInput, tbl_appointmentsUncheckedCreateWithoutDoctorInput>
+  }
+
+  export type tbl_appointmentsUpdateWithWhereUniqueWithoutDoctorInput = {
+    where: tbl_appointmentsWhereUniqueInput
+    data: XOR<tbl_appointmentsUpdateWithoutDoctorInput, tbl_appointmentsUncheckedUpdateWithoutDoctorInput>
+  }
+
+  export type tbl_appointmentsUpdateManyWithWhereWithoutDoctorInput = {
+    where: tbl_appointmentsScalarWhereInput
+    data: XOR<tbl_appointmentsUpdateManyMutationInput, tbl_appointmentsUncheckedUpdateManyWithoutDoctorInput>
+  }
+
+  export type tbl_appointmentsScalarWhereInput = {
+    AND?: tbl_appointmentsScalarWhereInput | tbl_appointmentsScalarWhereInput[]
+    OR?: tbl_appointmentsScalarWhereInput[]
+    NOT?: tbl_appointmentsScalarWhereInput | tbl_appointmentsScalarWhereInput[]
+    id?: StringFilter<"tbl_appointments"> | string
+    doctor_id?: StringFilter<"tbl_appointments"> | string
+    patient_name?: StringFilter<"tbl_appointments"> | string
+    appointment_date?: DateTimeFilter<"tbl_appointments"> | Date | string
+    status?: StringFilter<"tbl_appointments"> | string
+    created_at?: DateTimeFilter<"tbl_appointments"> | Date | string
+  }
+
+  export type tbl_rolesCreateWithoutUsersInput = {
+    id?: string
+    role_name: string
+    tbl_users?: tbl_usersCreateNestedManyWithoutRoleInput
+  }
+
+  export type tbl_rolesUncheckedCreateWithoutUsersInput = {
+    id?: string
+    role_name: string
+    tbl_users?: tbl_usersUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type tbl_rolesCreateOrConnectWithoutUsersInput = {
+    where: tbl_rolesWhereUniqueInput
+    create: XOR<tbl_rolesCreateWithoutUsersInput, tbl_rolesUncheckedCreateWithoutUsersInput>
   }
 
   export type tbl_solved_appointmentsCreateWithoutDoctorInput = {
@@ -10605,32 +9494,25 @@ export namespace Prisma {
     data: tbl_solved_appointmentsCreateManyDoctorInput | tbl_solved_appointmentsCreateManyDoctorInput[]
   }
 
-  export type tbl_appointmentsUpsertWithWhereUniqueWithoutDoctorInput = {
-    where: tbl_appointmentsWhereUniqueInput
-    update: XOR<tbl_appointmentsUpdateWithoutDoctorInput, tbl_appointmentsUncheckedUpdateWithoutDoctorInput>
-    create: XOR<tbl_appointmentsCreateWithoutDoctorInput, tbl_appointmentsUncheckedCreateWithoutDoctorInput>
+  export type tbl_rolesUpsertWithoutUsersInput = {
+    update: XOR<tbl_rolesUpdateWithoutUsersInput, tbl_rolesUncheckedUpdateWithoutUsersInput>
+    create: XOR<tbl_rolesCreateWithoutUsersInput, tbl_rolesUncheckedCreateWithoutUsersInput>
+    where?: tbl_rolesWhereInput
   }
 
-  export type tbl_appointmentsUpdateWithWhereUniqueWithoutDoctorInput = {
-    where: tbl_appointmentsWhereUniqueInput
-    data: XOR<tbl_appointmentsUpdateWithoutDoctorInput, tbl_appointmentsUncheckedUpdateWithoutDoctorInput>
+  export type tbl_rolesUpdateToOneWithWhereWithoutUsersInput = {
+    where?: tbl_rolesWhereInput
+    data: XOR<tbl_rolesUpdateWithoutUsersInput, tbl_rolesUncheckedUpdateWithoutUsersInput>
   }
 
-  export type tbl_appointmentsUpdateManyWithWhereWithoutDoctorInput = {
-    where: tbl_appointmentsScalarWhereInput
-    data: XOR<tbl_appointmentsUpdateManyMutationInput, tbl_appointmentsUncheckedUpdateManyWithoutDoctorInput>
+  export type tbl_rolesUpdateWithoutUsersInput = {
+    role_name?: StringFieldUpdateOperationsInput | string
+    tbl_users?: tbl_usersUpdateManyWithoutRoleNestedInput
   }
 
-  export type tbl_appointmentsScalarWhereInput = {
-    AND?: tbl_appointmentsScalarWhereInput | tbl_appointmentsScalarWhereInput[]
-    OR?: tbl_appointmentsScalarWhereInput[]
-    NOT?: tbl_appointmentsScalarWhereInput | tbl_appointmentsScalarWhereInput[]
-    id?: StringFilter<"tbl_appointments"> | string
-    doctor_id?: StringFilter<"tbl_appointments"> | string
-    patient_name?: StringFilter<"tbl_appointments"> | string
-    appointment_date?: DateTimeFilter<"tbl_appointments"> | Date | string
-    status?: StringFilter<"tbl_appointments"> | string
-    created_at?: DateTimeFilter<"tbl_appointments"> | Date | string
+  export type tbl_rolesUncheckedUpdateWithoutUsersInput = {
+    role_name?: StringFieldUpdateOperationsInput | string
+    tbl_users?: tbl_usersUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type tbl_solved_appointmentsUpsertWithWhereUniqueWithoutDoctorInput = {
@@ -10662,23 +9544,25 @@ export namespace Prisma {
     solved_at?: DateTimeFilter<"tbl_solved_appointments"> | Date | string
   }
 
-  export type tbl_doctorsCreateWithoutAppointmentsInput = {
+  export type tbl_usersCreateWithoutTbl_appointmentsInput = {
     id?: string
-    name: string
-    specialization: string
-    solved?: tbl_solved_appointmentsCreateNestedManyWithoutDoctorInput
+    names: string
+    email: string
+    password: string
+    role: tbl_rolesCreateNestedOneWithoutTbl_usersInput
   }
 
-  export type tbl_doctorsUncheckedCreateWithoutAppointmentsInput = {
+  export type tbl_usersUncheckedCreateWithoutTbl_appointmentsInput = {
     id?: string
-    name: string
-    specialization: string
-    solved?: tbl_solved_appointmentsUncheckedCreateNestedManyWithoutDoctorInput
+    names: string
+    email: string
+    password: string
+    role_id: string
   }
 
-  export type tbl_doctorsCreateOrConnectWithoutAppointmentsInput = {
-    where: tbl_doctorsWhereUniqueInput
-    create: XOR<tbl_doctorsCreateWithoutAppointmentsInput, tbl_doctorsUncheckedCreateWithoutAppointmentsInput>
+  export type tbl_usersCreateOrConnectWithoutTbl_appointmentsInput = {
+    where: tbl_usersWhereUniqueInput
+    create: XOR<tbl_usersCreateWithoutTbl_appointmentsInput, tbl_usersUncheckedCreateWithoutTbl_appointmentsInput>
   }
 
   export type tbl_solved_appointmentsCreateWithoutAppointmentInput = {
@@ -10687,7 +9571,7 @@ export namespace Prisma {
     appointment_date: Date | string
     status: string
     solved_at?: Date | string
-    doctor?: tbl_doctorsCreateNestedOneWithoutSolvedInput
+    doctor?: tbl_userCreateNestedOneWithoutSolvedInput
   }
 
   export type tbl_solved_appointmentsUncheckedCreateWithoutAppointmentInput = {
@@ -10708,27 +9592,29 @@ export namespace Prisma {
     data: tbl_solved_appointmentsCreateManyAppointmentInput | tbl_solved_appointmentsCreateManyAppointmentInput[]
   }
 
-  export type tbl_doctorsUpsertWithoutAppointmentsInput = {
-    update: XOR<tbl_doctorsUpdateWithoutAppointmentsInput, tbl_doctorsUncheckedUpdateWithoutAppointmentsInput>
-    create: XOR<tbl_doctorsCreateWithoutAppointmentsInput, tbl_doctorsUncheckedCreateWithoutAppointmentsInput>
-    where?: tbl_doctorsWhereInput
+  export type tbl_usersUpsertWithoutTbl_appointmentsInput = {
+    update: XOR<tbl_usersUpdateWithoutTbl_appointmentsInput, tbl_usersUncheckedUpdateWithoutTbl_appointmentsInput>
+    create: XOR<tbl_usersCreateWithoutTbl_appointmentsInput, tbl_usersUncheckedCreateWithoutTbl_appointmentsInput>
+    where?: tbl_usersWhereInput
   }
 
-  export type tbl_doctorsUpdateToOneWithWhereWithoutAppointmentsInput = {
-    where?: tbl_doctorsWhereInput
-    data: XOR<tbl_doctorsUpdateWithoutAppointmentsInput, tbl_doctorsUncheckedUpdateWithoutAppointmentsInput>
+  export type tbl_usersUpdateToOneWithWhereWithoutTbl_appointmentsInput = {
+    where?: tbl_usersWhereInput
+    data: XOR<tbl_usersUpdateWithoutTbl_appointmentsInput, tbl_usersUncheckedUpdateWithoutTbl_appointmentsInput>
   }
 
-  export type tbl_doctorsUpdateWithoutAppointmentsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    specialization?: StringFieldUpdateOperationsInput | string
-    solved?: tbl_solved_appointmentsUpdateManyWithoutDoctorNestedInput
+  export type tbl_usersUpdateWithoutTbl_appointmentsInput = {
+    names?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: tbl_rolesUpdateOneRequiredWithoutTbl_usersNestedInput
   }
 
-  export type tbl_doctorsUncheckedUpdateWithoutAppointmentsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    specialization?: StringFieldUpdateOperationsInput | string
-    solved?: tbl_solved_appointmentsUncheckedUpdateManyWithoutDoctorNestedInput
+  export type tbl_usersUncheckedUpdateWithoutTbl_appointmentsInput = {
+    names?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type tbl_solved_appointmentsUpsertWithWhereUniqueWithoutAppointmentInput = {
@@ -10753,7 +9639,7 @@ export namespace Prisma {
     appointment_date: Date | string
     status: string
     created_at?: Date | string
-    doctor?: tbl_doctorsCreateNestedOneWithoutAppointmentsInput
+    doctor?: tbl_usersCreateNestedOneWithoutTbl_appointmentsInput
   }
 
   export type tbl_appointmentsUncheckedCreateWithoutSolved_appointmentsInput = {
@@ -10770,23 +9656,29 @@ export namespace Prisma {
     create: XOR<tbl_appointmentsCreateWithoutSolved_appointmentsInput, tbl_appointmentsUncheckedCreateWithoutSolved_appointmentsInput>
   }
 
-  export type tbl_doctorsCreateWithoutSolvedInput = {
+  export type tbl_userCreateWithoutSolvedInput = {
     id?: string
-    name: string
-    specialization: string
-    appointments?: tbl_appointmentsCreateNestedManyWithoutDoctorInput
+    u_names: string
+    u_phone: string
+    u_usersname: string
+    u_email: string
+    u_password: string
+    role?: tbl_rolesCreateNestedOneWithoutUsersInput
   }
 
-  export type tbl_doctorsUncheckedCreateWithoutSolvedInput = {
+  export type tbl_userUncheckedCreateWithoutSolvedInput = {
     id?: string
-    name: string
-    specialization: string
-    appointments?: tbl_appointmentsUncheckedCreateNestedManyWithoutDoctorInput
+    u_names: string
+    u_phone: string
+    u_usersname: string
+    u_email: string
+    u_password: string
+    u_role_id: string
   }
 
-  export type tbl_doctorsCreateOrConnectWithoutSolvedInput = {
-    where: tbl_doctorsWhereUniqueInput
-    create: XOR<tbl_doctorsCreateWithoutSolvedInput, tbl_doctorsUncheckedCreateWithoutSolvedInput>
+  export type tbl_userCreateOrConnectWithoutSolvedInput = {
+    where: tbl_userWhereUniqueInput
+    create: XOR<tbl_userCreateWithoutSolvedInput, tbl_userUncheckedCreateWithoutSolvedInput>
   }
 
   export type tbl_appointmentsUpsertWithoutSolved_appointmentsInput = {
@@ -10805,7 +9697,7 @@ export namespace Prisma {
     appointment_date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    doctor?: tbl_doctorsUpdateOneWithoutAppointmentsNestedInput
+    doctor?: tbl_usersUpdateOneWithoutTbl_appointmentsNestedInput
   }
 
   export type tbl_appointmentsUncheckedUpdateWithoutSolved_appointmentsInput = {
@@ -10816,27 +9708,33 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type tbl_doctorsUpsertWithoutSolvedInput = {
-    update: XOR<tbl_doctorsUpdateWithoutSolvedInput, tbl_doctorsUncheckedUpdateWithoutSolvedInput>
-    create: XOR<tbl_doctorsCreateWithoutSolvedInput, tbl_doctorsUncheckedCreateWithoutSolvedInput>
-    where?: tbl_doctorsWhereInput
+  export type tbl_userUpsertWithoutSolvedInput = {
+    update: XOR<tbl_userUpdateWithoutSolvedInput, tbl_userUncheckedUpdateWithoutSolvedInput>
+    create: XOR<tbl_userCreateWithoutSolvedInput, tbl_userUncheckedCreateWithoutSolvedInput>
+    where?: tbl_userWhereInput
   }
 
-  export type tbl_doctorsUpdateToOneWithWhereWithoutSolvedInput = {
-    where?: tbl_doctorsWhereInput
-    data: XOR<tbl_doctorsUpdateWithoutSolvedInput, tbl_doctorsUncheckedUpdateWithoutSolvedInput>
+  export type tbl_userUpdateToOneWithWhereWithoutSolvedInput = {
+    where?: tbl_userWhereInput
+    data: XOR<tbl_userUpdateWithoutSolvedInput, tbl_userUncheckedUpdateWithoutSolvedInput>
   }
 
-  export type tbl_doctorsUpdateWithoutSolvedInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    specialization?: StringFieldUpdateOperationsInput | string
-    appointments?: tbl_appointmentsUpdateManyWithoutDoctorNestedInput
+  export type tbl_userUpdateWithoutSolvedInput = {
+    u_names?: StringFieldUpdateOperationsInput | string
+    u_phone?: StringFieldUpdateOperationsInput | string
+    u_usersname?: StringFieldUpdateOperationsInput | string
+    u_email?: StringFieldUpdateOperationsInput | string
+    u_password?: StringFieldUpdateOperationsInput | string
+    role?: tbl_rolesUpdateOneWithoutUsersNestedInput
   }
 
-  export type tbl_doctorsUncheckedUpdateWithoutSolvedInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    specialization?: StringFieldUpdateOperationsInput | string
-    appointments?: tbl_appointmentsUncheckedUpdateManyWithoutDoctorNestedInput
+  export type tbl_userUncheckedUpdateWithoutSolvedInput = {
+    u_names?: StringFieldUpdateOperationsInput | string
+    u_phone?: StringFieldUpdateOperationsInput | string
+    u_usersname?: StringFieldUpdateOperationsInput | string
+    u_email?: StringFieldUpdateOperationsInput | string
+    u_password?: StringFieldUpdateOperationsInput | string
+    u_role_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type tbl_userCreateManyRoleInput = {
@@ -10861,6 +9759,7 @@ export namespace Prisma {
     u_usersname?: StringFieldUpdateOperationsInput | string
     u_email?: StringFieldUpdateOperationsInput | string
     u_password?: StringFieldUpdateOperationsInput | string
+    solved?: tbl_solved_appointmentsUpdateManyWithoutDoctorNestedInput
   }
 
   export type tbl_userUncheckedUpdateWithoutRoleInput = {
@@ -10869,6 +9768,7 @@ export namespace Prisma {
     u_usersname?: StringFieldUpdateOperationsInput | string
     u_email?: StringFieldUpdateOperationsInput | string
     u_password?: StringFieldUpdateOperationsInput | string
+    solved?: tbl_solved_appointmentsUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type tbl_userUncheckedUpdateManyWithoutRoleInput = {
@@ -10883,12 +9783,14 @@ export namespace Prisma {
     names?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    tbl_appointments?: tbl_appointmentsUpdateManyWithoutDoctorNestedInput
   }
 
   export type tbl_usersUncheckedUpdateWithoutRoleInput = {
     names?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    tbl_appointments?: tbl_appointmentsUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type tbl_usersUncheckedUpdateManyWithoutRoleInput = {
@@ -10903,15 +9805,6 @@ export namespace Prisma {
     appointment_date: Date | string
     status: string
     created_at?: Date | string
-  }
-
-  export type tbl_solved_appointmentsCreateManyDoctorInput = {
-    id?: string
-    appointment_id: string
-    patient_name: string
-    appointment_date: Date | string
-    status: string
-    solved_at?: Date | string
   }
 
   export type tbl_appointmentsUpdateWithoutDoctorInput = {
@@ -10935,6 +9828,15 @@ export namespace Prisma {
     appointment_date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type tbl_solved_appointmentsCreateManyDoctorInput = {
+    id?: string
+    appointment_id: string
+    patient_name: string
+    appointment_date: Date | string
+    status: string
+    solved_at?: Date | string
   }
 
   export type tbl_solved_appointmentsUpdateWithoutDoctorInput = {
@@ -10975,7 +9877,7 @@ export namespace Prisma {
     appointment_date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     solved_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    doctor?: tbl_doctorsUpdateOneWithoutSolvedNestedInput
+    doctor?: tbl_userUpdateOneWithoutSolvedNestedInput
   }
 
   export type tbl_solved_appointmentsUncheckedUpdateWithoutAppointmentInput = {

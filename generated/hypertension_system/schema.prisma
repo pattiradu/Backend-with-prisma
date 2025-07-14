@@ -19,15 +19,16 @@ model tbl_roles {
 
 // General Users Table
 model tbl_users {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  names    String
-  email    String    @unique
-  password String
-  role_id  String    @db.ObjectId
-  role     tbl_roles @relation(fields: [role_id], references: [id], onDelete: Cascade)
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  names            String
+  email            String             @unique
+  password         String
+  role_id          String             @db.ObjectId
+  role             tbl_roles          @relation(fields: [role_id], references: [id], onDelete: Cascade)
+  tbl_appointments tbl_appointments[]
 }
 
-// System/Admin Users Table
+// System/Admin Users Table (Used as Doctors)
 model tbl_user {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
   u_names     String
@@ -37,19 +38,12 @@ model tbl_user {
   u_password  String
   u_role_id   String @db.ObjectId
 
-  role tbl_roles? @relation(fields: [u_role_id], references: [id], onDelete: Cascade)
+  role   tbl_roles?                @relation(fields: [u_role_id], references: [id], onDelete: Cascade)
+  // ← NEW: doctor appointments relation
+  solved tbl_solved_appointments[] // ← optional if needed for solved appointments
 }
 
-// Doctors Table
-model tbl_doctors {
-  id             String                    @id @default(auto()) @map("_id") @db.ObjectId
-  name           String
-  specialization String
-  appointments   tbl_appointments[]
-  solved         tbl_solved_appointments[]
-}
-
-// Appointments Table
+// Appointments Table (Updated to point to tbl_user instead of tbl_doctors)
 model tbl_appointments {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
   doctor_id        String   @db.ObjectId
@@ -58,11 +52,11 @@ model tbl_appointments {
   status           String
   created_at       DateTime @default(now())
 
-  doctor              tbl_doctors?              @relation(fields: [doctor_id], references: [id], onDelete: Cascade)
+  doctor              tbl_users?                @relation(fields: [doctor_id], references: [id], onDelete: Cascade)
   solved_appointments tbl_solved_appointments[]
 }
 
-// Solved Appointments Table
+// Solved Appointments Table (also linked to tbl_user)
 model tbl_solved_appointments {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
   appointment_id   String   @db.ObjectId
@@ -73,7 +67,7 @@ model tbl_solved_appointments {
   solved_at        DateTime @default(now())
 
   appointment tbl_appointments? @relation(fields: [appointment_id], references: [id], onDelete: Cascade)
-  doctor      tbl_doctors?      @relation(fields: [doctor_id], references: [id], onDelete: Cascade)
+  doctor      tbl_user?         @relation(fields: [doctor_id], references: [id], onDelete: Cascade)
 }
 
 // Heart Monitoring Data Table
